@@ -1,0 +1,59 @@
+.startButton
+{
+	-fx-background-color : #388E3C;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 2; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.startButton:hover
+{
+	-fx-background-color : #66BB6A;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 2; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.startButton:pressed
+{
+	-fx-background-color : #4CAF50;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 6; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.exitButton
+{
+	-fx-background-color : #D32F2F;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 2; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.exitButton:hover
+{
+	-fx-background-color : #F44336;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 2; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.exitButton:pressed
+{
+	-fx-background-color : #D32F2F;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 6; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
