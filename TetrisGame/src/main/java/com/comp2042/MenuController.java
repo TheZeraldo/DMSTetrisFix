@@ -1,8 +1,12 @@
 package com.comp2042;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class MenuController {
@@ -15,6 +19,13 @@ public class MenuController {
 
     @FXML
     private Button startButton;
+    
+    @FXML
+    private Button startButton1;
+    
+    public void initialize(URL location, ResourceBundle resources) {
+    	Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(), 38);
+    }
     
     public void setPrimaryStage(Stage stage) {
     	this.primaryStage = stage;

@@ -64,6 +64,20 @@
     -fx-background-color: red;
 }
 
+.gameOverStyleFinal {
+	-fx-font-family: "Let's go Digital";
+    -fx-font-size: 48;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.restartTextStyle {
+	-fx-font-family: "Let's go Digital";
+    -fx-font-size: 40;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
 .scoreClass{
     -fx-font-family: "Let's go Digital";
     -fx-font-size: 38;

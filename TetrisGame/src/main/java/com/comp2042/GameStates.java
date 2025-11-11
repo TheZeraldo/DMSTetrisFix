@@ -3,8 +3,7 @@ package com.comp2042;
 public enum GameStates {
 
 	MENU,
-	PLAYING,
-	GAME_OVER;
+	PLAYING;
 	
 	public static GameStates gameState = MENU;
 	

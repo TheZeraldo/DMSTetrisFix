@@ -1,5 +1,7 @@
 package com.comp2042;
 
+import javafx.beans.property.IntegerProperty;
+
 public class GameController implements InputEventListener {
 
     private Board board = new SimpleBoard(25, 10);
@@ -61,5 +63,9 @@ public class GameController implements InputEventListener {
     public void createNewGame() {
         board.newGame();
         viewGuiController.refreshGameBackground(board.getBoardMatrix());
+    }
+    
+    public Board getBoard() {
+    	return board;
     }
 }

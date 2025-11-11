@@ -1,5 +1,7 @@
 .startButton
 {
+	-fx-font-family: "Let's go Digital";
+	-fx-font-size: 30;
 	-fx-background-color : #388E3C;
 	-fx-background-radius : 6;
 	-fx-border-color: black; 
@@ -30,6 +32,8 @@
 
 .exitButton
 {
+	-fx-font-family: "Let's go Digital";
+	-fx-font-size: 30;
 	-fx-background-color : #D32F2F;
 	-fx-background-radius : 6;
 	-fx-border-color: black; 

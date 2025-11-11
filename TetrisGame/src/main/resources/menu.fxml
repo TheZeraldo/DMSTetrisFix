@@ -4,16 +4,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.comp2042.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="400.0" stylesheets="@menuButtons.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.comp2042.MenuController">
    <children>
        <Button fx:id="startButton" layoutX="106.0" layoutY="160.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#onStartButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="startButton" stylesheets="@menuButtons.css" text="Start Game">
          <font>
             <Font name="Courier New Bold" size="20.0" />
          </font></Button>
-       <Button fx:id="exitButton" layoutX="106.0" layoutY="352.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onExitButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="exitButton" stylesheets="@menuButtons.css" text="Exit">
-         <font>
-            <Font name="Courier New Bold" size="20.0" />
-         </font>
-      </Button>
+       <Button fx:id="exitButton" layoutX="106.0" layoutY="352.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onExitButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="exitButton" stylesheets="@menuButtons.css" text="Exit" />
    </children>
 </AnchorPane>

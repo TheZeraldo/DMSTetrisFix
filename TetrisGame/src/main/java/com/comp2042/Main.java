@@ -25,9 +25,6 @@ public class Main extends Application {
     	case PLAYING:
     		startGame();
     		break;
-    	case GAME_OVER:
-    		//add GAME OVER screen
-    		break;
     	}
     }
 
@@ -59,11 +56,16 @@ public class Main extends Application {
         MenuController m = fxmlLoader.getController();
         m.setPrimaryStage(primaryStage);
         m.setMain(this);
+        m.initialize(location, resources);
 
         primaryStage.setTitle("TetrisJFX");
         Scene scene = new Scene(root, 400, 510);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+    
+    public Stage getStage() {
+    	return primaryStage;
     }
 }
