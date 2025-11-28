@@ -2,23 +2,92 @@
 
 <?import com.comp2042.GameOverPanel?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<Pane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.comp2042.GuiController">
-    <GridPane fx:id="brickPanel" hgap="1" vgap="1" />
-    <BorderPane fx:id="gameBoard" styleClass="gameBoard">
+<Pane prefHeight="510.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.comp2042.GuiController">
+   <GridPane fx:id="ghostBrickPanel" hgap="1" layoutX="200.0" vgap="1" />
+    <GridPane fx:id="brickPanel" hgap="1" layoutX="200.0" vgap="1" />
+    <BorderPane fx:id="gameBoard" layoutX="200.0" prefHeight="510.0" prefWidth="234.0" styleClass="gameBoard">
         <center>
-            <GridPane fx:id="gamePanel" hgap="1" layoutX="40" layoutY="30" vgap="1" />
+            <GridPane fx:id="gamePanel" hgap="1" vgap="1" />
         </center>
     </BorderPane>
+   <Pane id="controlsPane" layoutY="231.0" prefHeight="279.0" prefWidth="200.0" styleClass="ipad-dark-grey">
+      <children>
+         <VBox layoutY="5.0" prefHeight="269.0" prefWidth="200.0">
+            <children>
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="200.0" styleClass="optionsClass" text="Esc - Quit Game" />
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="205.0" styleClass="optionsClass" text="P - Pause Game" />
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="205.0" styleClass="optionsClass" text="N - Restart Game" />
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="210.0" styleClass="optionsClass" text="C - Hold Piece" />
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="204.0" styleClass="optionsClass" text="↑/W - Rotate Piece" />
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="212.0" styleClass="optionsClass" text="←/A - Move Left" />
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="214.0" styleClass="optionsClass" text="→/D - Move Right" />
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="233.0" styleClass="optionsClass" text="↓/S - Soft Drop" />
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="223.0" styleClass="optionsClass" text="SPACE - Hard Drop" />
+            </children>
+         </VBox>
+      </children>
+   </Pane>
 
-    <Group fx:id="groupNotification" layoutX="14" layoutY="203">
+    <Group fx:id="groupNotification" layoutX="214.0" layoutY="203">
         <VBox alignment="CENTER" />
     </Group>
+   <Pane fx:id="nextBrickPane" layoutX="440.0" layoutY="144.0" prefHeight="88.0" prefWidth="154.0" styleClass="nextBrick">
+      <children>
+         <Label layoutX="3.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="51.0" styleClass="nextBrickLabel" text="NEXT" />
+      </children>
+   </Pane>
+   <VBox layoutX="434.0" layoutY="30.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
+      <children>
+         <Label alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="SCORE:" textAlignment="CENTER" textFill="#fffcfc" />
+         <Label fx:id="scoreDisplay" alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="0" textAlignment="CENTER" textFill="#fcfafa" />
+      </children>
+   </VBox>
+   <VBox layoutX="434.0" layoutY="254.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
+      <children>
+         <Label alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="LEVEL:" textAlignment="CENTER" textFill="#fffcfc" />
+         <Label fx:id="levelDisplay" alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="0" textAlignment="CENTER" textFill="#fcfafa" />
+      </children>
+   </VBox>
+   <VBox layoutX="434.0" layoutY="379.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
+      <children>
+         <Label alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="LINES:" textAlignment="CENTER" textFill="#fffcfc" />
+         <Label fx:id="linesDisplay" alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="0" textAlignment="CENTER" textFill="#fcfafa" />
+      </children>
+   </VBox>
+   <Pane id="holdBrick" fx:id="holdBrickPane" layoutX="21.0" layoutY="144.0" prefHeight="88.0" prefWidth="154.0" styleClass="nextBrick">
+      <children>
+         <Label id="holdBrickLabel" layoutX="3.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="51.0" styleClass="nextBrickLabel" text="HOLD" />
+      </children>
+   </Pane>
+   <Pane fx:id="pausePane" opacity="0.7" prefHeight="510.0" prefWidth="600.0" style="-fx-background-color: black;" visible="false">
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+      <children>
+         <Label alignment="CENTER" layoutX="200.0" layoutY="-1.0" prefHeight="411.0" prefWidth="234.0" styleClass="gameOverStyleFinal" text="PAUSED" />
+         <Label alignment="CENTER" layoutX="198.0" layoutY="93.0" prefHeight="394.0" prefWidth="234.0" text="II" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="96.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
+   <Pane id="buttonPane" prefHeight="133.0" prefWidth="200.0">
+      <children>
+         <Button id="pauseButton" layoutX="72.0" layoutY="28.0" mnemonicParsing="false" onAction="#pauseGame" prefHeight="48.0" prefWidth="51.0" styleClass="ipad-dark-grey" text="II" />
+         <Button layoutX="55.0" layoutY="84.0" mnemonicParsing="false" onAction="#returnToMainMenu" styleClass="ipad-dark-grey" text="Main Menu" />
+      </children>
+   </Pane>
       <GameOverPanel fx:id="gameOverPanel" />
     <stylesheets>
         <URL value="@window_style.css" />

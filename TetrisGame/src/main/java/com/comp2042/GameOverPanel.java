@@ -28,13 +28,16 @@ public class GameOverPanel extends Pane {
 	private Label highScore;
 	private Label yourScore;
 	private Label restartText;
+	private Label newHighScoreLabel;
 	private FadeTransition fadeRestartText;
 	private int finalScore;
+	private int currentHighScore;
+	private boolean newHighScore = false;
 	
     public GameOverPanel() {
         
         //Dark overlay
-        overlayBackground = new Rectangle(400, 510);
+        overlayBackground = new Rectangle(600, 510);
         overlayBackground.setFill(Color.BLACK);
         overlayBackground.setOpacity(0);
         overlayBackground.setX(0);
@@ -43,7 +46,7 @@ public class GameOverPanel extends Pane {
     	//Game Over label
         gameOverLabel = new Label("GAME OVER");
         gameOverLabel.getStyleClass().add("gameOverStyle");
-        gameOverLabel.setLayoutX(14);
+        gameOverLabel.setLayoutX(214);
         gameOverLabel.setLayoutY(203);
         
         //Add to root
@@ -59,7 +62,7 @@ public class GameOverPanel extends Pane {
         
         //Game Over moves to the top middle
         TranslateTransition moveToTop = new TranslateTransition(Duration.seconds(0.5), gameOverLabel);
-        moveToTop.setByX(84);
+        moveToTop.setByX(-16);
         moveToTop.setByY(-153);
         
         //Darkening Effect
@@ -77,34 +80,34 @@ public class GameOverPanel extends Pane {
         //Display 2 labels: YOUR SCORE (with 0 under it), HIGH SCORE (with high score under it).
         highScoreLabel = new Label("HIGH SCORE");
         highScoreLabel.getStyleClass().add("gameOverStyleFinal");
-        highScoreLabel.setLayoutX(98);
+        highScoreLabel.setLayoutX(198);
         highScoreLabel.setLayoutY(150);
         highScoreLabel.setOpacity(0);
         
         //HIGH SCORE taken from an external file
-        highScore = new Label("2000");
+        highScore = new Label("0");
         highScore.getStyleClass().add("gameOverStyleFinal");
-        highScore.setLayoutX(98);
+        highScore.setLayoutX(198);
         highScore.setLayoutY(200);
         highScore.setOpacity(0);
         
         
         yourScoreLabel = new Label("YOUR SCORE");
         yourScoreLabel.getStyleClass().add("gameOverStyleFinal");
-        yourScoreLabel.setLayoutX(98);
+        yourScoreLabel.setLayoutX(198);
         yourScoreLabel.setLayoutY(300);
         yourScoreLabel.setOpacity(0);
         
         yourScore = new Label("0");                         //String.valueOf(gameController.getBoard().getScore().scoreProperty()));		//Add YOUR SCORE from board/score
         yourScore.getStyleClass().add("gameOverStyleFinal");
-        yourScore.setLayoutX(98);
+        yourScore.setLayoutX(198);
         yourScore.setLayoutY(350);
         yourScore.setOpacity(0);
         
         //"Press N to restart" label
         restartText = new Label("PRESS 'N' TO RESTART");
         restartText.getStyleClass().add("restartTextStyle");
-        restartText.setLayoutX(30);
+        restartText.setLayoutX(130);
         restartText.setLayoutY(450);
         restartText.setOpacity(0);
         
@@ -138,7 +141,7 @@ public class GameOverPanel extends Pane {
         fadeRestartText.setCycleCount(FadeTransition.INDEFINITE);
         
         fadeAllScores.setOnFinished(e -> {
-        	animateScore(yourScore, finalScore);
+        	animateScore(yourScore, 0, finalScore);
         	fadeRestartText.play();
         });
         
@@ -146,6 +149,9 @@ public class GameOverPanel extends Pane {
         gameOverFadeIn.setOnFinished(e -> {
             gameOverLabel.getStyleClass().add("gameOverStyleFinal");
             fadeAllScores.play();
+            if (newHighScore) {
+            	newHighScoreAnimation();
+            }
         });
         
         //Checks if visible (visually) before running animation, uses lambda expression
@@ -158,13 +164,39 @@ public class GameOverPanel extends Pane {
         
     }
     
+    private void newHighScoreAnimation() {
+    	highScoreLabel.setTextFill(Color.GOLD);
+    	highScore.setTextFill(Color.GOLD);
+    	
+    	newHighScoreLabel = new Label("NEW HIGH SCORE!!");
+    	newHighScoreLabel.getStyleClass().add("gameOverStyleFinal");
+    	newHighScoreLabel.setTextFill(Color.GOLD);
+    	newHighScoreLabel.setLayoutX(158);
+    	newHighScoreLabel.setLayoutY(110);
+    	newHighScoreLabel.setOpacity(0);
+        getChildren().add(newHighScoreLabel);
+        
+        FadeTransition newHighScoreFade = new FadeTransition(Duration.seconds(0.2), newHighScoreLabel);
+        newHighScoreFade.setFromValue(0);
+        newHighScoreFade.setToValue(1.0);
+        newHighScoreFade.setAutoReverse(true);
+        newHighScoreFade.setCycleCount(11);
+    	newHighScoreFade.setDelay(Duration.seconds(3));
+    	
+    	newHighScoreFade.play();
+    	
+        newHighScoreFade.setOnFinished(e -> {
+            animateScore(highScore, currentHighScore, finalScore);
+        });
+    }
+    
     //Animate score to go from 0 up to the player final score
-    private void animateScore(Label label, int finalScore) {
+    private void animateScore(Label label, int initialScore, int finalScore) {
     	Duration duration = Duration.seconds(2);
 
         //Initial Timeline with keyframes
         Timeline timeline = new Timeline(
-            new KeyFrame(Duration.ZERO, new KeyValue(label.textProperty(), "0")),
+            new KeyFrame(Duration.ZERO, new KeyValue(label.textProperty(), String.valueOf(initialScore))),
             new KeyFrame(duration, event -> label.setText(String.valueOf(finalScore)))
         );
 
@@ -192,10 +224,24 @@ public class GameOverPanel extends Pane {
         yourScore.setText("0");
         restartText.setOpacity(0);
         fadeRestartText.stop();
+        if (newHighScoreLabel != null) {
+            newHighScoreLabel.setOpacity(0);
+        }
     }
     
     public void setScore(int score) {
     	finalScore = score;
+
+    	currentHighScore = HighScoreManager.getHighScore();
+    	highScore.setText(String.valueOf(currentHighScore));
+    	System.out.println(currentHighScore);
+        
+    	if (score > currentHighScore) {
+    		newHighScore = true;
+    		HighScoreManager.saveHighScore(score);
+    	} else {
+    		newHighScore = false;
+    	}
     }
 
 }

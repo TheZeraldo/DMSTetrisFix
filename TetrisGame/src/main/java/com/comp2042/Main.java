@@ -14,11 +14,18 @@ public class Main extends Application {
 	private Stage primaryStage;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception{
     	this.primaryStage = primaryStage;
-    	
+    	loadScene();
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    public void loadScene() throws Exception{
     	switch(GameStates.gameState) {
-    	
     	case MENU:
     		showMenu();
     		break;
@@ -27,11 +34,6 @@ public class Main extends Application {
     		break;
     	}
     }
-
-
-    public static void main(String[] args) {
-        launch(args);
-    }
     
     public void startGame() throws Exception {
         URL location = getClass().getClassLoader().getResource("gameLayout.fxml");
@@ -39,9 +41,10 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(location, resources);
         Parent root = fxmlLoader.load();
         GuiController c = fxmlLoader.getController();
+        c.setMain(this);
 
         primaryStage.setTitle("TetrisJFX");
-        Scene scene = new Scene(root, 400, 510);
+        Scene scene = new Scene(root, 600, 510);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -59,13 +62,9 @@ public class Main extends Application {
         m.initialize(location, resources);
 
         primaryStage.setTitle("TetrisJFX");
-        Scene scene = new Scene(root, 400, 510);
+        Scene scene = new Scene(root, 600, 510);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-    }
-    
-    public Stage getStage() {
-    	return primaryStage;
     }
 }
