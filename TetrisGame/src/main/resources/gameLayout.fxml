@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -41,24 +42,30 @@
     <Group fx:id="groupNotification" layoutX="214.0" layoutY="203">
         <VBox alignment="CENTER" />
     </Group>
-   <Pane fx:id="nextBrickPane" layoutX="440.0" layoutY="144.0" prefHeight="88.0" prefWidth="154.0" styleClass="nextBrick">
+   <HBox layoutX="434.0" prefHeight="55.0" prefWidth="166.0" styleClass="scoreClass">
+      <children>
+         <Label alignment="CENTER" prefHeight="55.0" prefWidth="114.0" text="Time:" textFill="WHITE" />
+         <Label fx:id="timeDisplay" alignment="CENTER" prefHeight="55.0" prefWidth="65.0" text="0" textFill="WHITE" />
+      </children>
+   </HBox>
+   <Pane fx:id="nextBrickPane" layoutX="440.0" layoutY="164.0" prefHeight="88.0" prefWidth="154.0" styleClass="nextBrick">
       <children>
          <Label layoutX="3.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="51.0" styleClass="nextBrickLabel" text="NEXT" />
       </children>
    </Pane>
-   <VBox layoutX="434.0" layoutY="30.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
+   <VBox fx:id="scoreVBox" layoutX="434.0" layoutY="50.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
       <children>
          <Label alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="SCORE:" textAlignment="CENTER" textFill="#fffcfc" />
          <Label fx:id="scoreDisplay" alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="0" textAlignment="CENTER" textFill="#fcfafa" />
       </children>
    </VBox>
-   <VBox layoutX="434.0" layoutY="254.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
+   <VBox fx:id="levelVBox" layoutX="434.0" layoutY="274.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
       <children>
          <Label alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="LEVEL:" textAlignment="CENTER" textFill="#fffcfc" />
          <Label fx:id="levelDisplay" alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="0" textAlignment="CENTER" textFill="#fcfafa" />
       </children>
    </VBox>
-   <VBox layoutX="434.0" layoutY="379.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
+   <VBox layoutX="434.0" layoutY="399.0" prefHeight="110.0" prefWidth="160.0" styleClass="scoreClass">
       <children>
          <Label alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="LINES:" textAlignment="CENTER" textFill="#fffcfc" />
          <Label fx:id="linesDisplay" alignment="CENTER" prefHeight="55.0" prefWidth="163.0" text="0" textAlignment="CENTER" textFill="#fcfafa" />

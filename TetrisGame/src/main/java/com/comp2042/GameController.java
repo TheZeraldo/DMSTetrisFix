@@ -28,13 +28,19 @@ public class GameController implements InputEventListener {
             board.mergeBrickToBackground();
             clearRow = board.clearRows();
             if (clearRow.getLinesRemoved() > 0) {
+            	if (GameModes.gameMode == GameModes.TIME) {
+            		viewGuiController.increaseTimer(clearRow.getLinesRemoved() * 5);
+            	}
                 board.getScore().add(clearRow.getScoreBonus());
                 board.getScore().addLines(clearRow.getLinesRemoved());
+                if (GameModes.gameMode == GameModes.SPRINT && board.getScore().linesLeft() == 0) {
+                    viewGuiController.gameOver(false);
+                }
                 viewGuiController.updateLines(board.getScore().linesLeft());
                 viewGuiController.updateFallSpeed(board.getScore().getFallSpeed());
             }
             if (board.createNewBrick()) {
-                viewGuiController.gameOver();
+                viewGuiController.gameOver(true);
             }
 
             viewGuiController.updateNextPreview(board.getNextBrick());
@@ -58,14 +64,21 @@ public class GameController implements InputEventListener {
 		board.mergeBrickToBackground();
         ClearRow clearRow = board.clearRows();
         if (clearRow.getLinesRemoved() > 0) {
+        	if (GameModes.gameMode == GameModes.TIME) {
+        		viewGuiController.increaseTimer(clearRow.getLinesRemoved() * 10);
+        	}
             board.getScore().add(clearRow.getScoreBonus());
-            board.getScore().addLines(clearRow.getLinesRemoved());
-            //board.getScore().addLines(10);
-            viewGuiController.updateLines(board.getScore().linesLeft());
-            viewGuiController.updateFallSpeed(board.getScore().getFallSpeed());
+            //board.getScore().addLines(clearRow.getLinesRemoved());
+            board.getScore().addLines(10);
+            if (GameModes.gameMode == GameModes.SPRINT && board.getScore().linesLeft() == 0) {
+                viewGuiController.gameOver(false);
+            } else {
+            	viewGuiController.updateFallSpeed(board.getScore().getFallSpeed());
+            }
+        	viewGuiController.updateLines(board.getScore().linesLeft());
         }
         if (board.createNewBrick()) {
-            viewGuiController.gameOver();
+            viewGuiController.gameOver(true);
         }
 
         viewGuiController.updateNextPreview(board.getNextBrick());

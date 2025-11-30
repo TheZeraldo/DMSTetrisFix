@@ -24,13 +24,21 @@ public final class Score {
     public void addLines(int clearedLines) {
         lines.setValue(lines.getValue() + clearedLines);
         
+        if (GameModes.gameMode == GameModes.SPRINT) {
+        	return;
+        }
+        
         if (lines.getValue() / 10 > level.getValue()) {
         	level.setValue(level.getValue() + 1);
         }
     }
     
     public int linesLeft() {
-    	return 10 - (lines.getValue() % 10);
+    	if (GameModes.gameMode == GameModes.SPRINT) {
+    		return 40 - lines.getValue();
+    	} else {
+    		return 10 - (lines.getValue() % 10);
+    	}
     }
     
     public int getFallSpeed() {

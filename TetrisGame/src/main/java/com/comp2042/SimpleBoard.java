@@ -87,7 +87,11 @@ public class SimpleBoard implements Board {
     public boolean createNewBrick() {
         Brick currentBrick = brickGenerator.getBrick();
         brickRotator.setBrick(currentBrick);
-        currentOffset = new Point(4, 1);
+        if (GameModes.gameMode == GameModes.BIG) {
+            currentOffset = new Point(2, 1);
+        } else {
+            currentOffset = new Point(4, 1);
+        }
         canHoldThisTurn = true;
         return MatrixOperations.intersect(currentGameMatrix, brickRotator.getCurrentShape(), (int) currentOffset.getX(), (int) currentOffset.getY());
     }
@@ -145,7 +149,11 @@ public class SimpleBoard implements Board {
 				heldBrick = currentBrick;
 		        brickRotator.setBrick(temp);
 		        brickRotator.setCurrentShape(0);
-		        currentOffset = new Point(4, 1);
+		        if (GameModes.gameMode == GameModes.BIG) {
+		            currentOffset = new Point(2, 1);
+		        } else {
+		            currentOffset = new Point(4, 1);
+		        }
 			}
 		}
 	}

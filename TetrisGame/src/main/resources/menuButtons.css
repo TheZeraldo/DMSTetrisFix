@@ -30,6 +30,38 @@
 	-fx-border-insets: -2;
 }
 
+.settingsButton
+{
+	-fx-font-family: "Let's go Digital";
+	-fx-font-size: 30;
+	-fx-background-color : #3A8DFF;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 2; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.settingsButton:hover
+{
+	-fx-background-color : #5AA3FF;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 2; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.settingsButton:pressed
+{
+	-fx-background-color : #2F74D6;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 6; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
 .exitButton
 {
 	-fx-font-family: "Let's go Digital";
@@ -60,4 +92,21 @@
 	-fx-border-width: 6; 
 	-fx-border-radius: 6;
 	-fx-border-insets: -2;
+}
+
+.ipad-dark-grey {
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
+    linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0, 1, 4, 5, 6;
+    -fx-background-radius: 9, 8, 5, 4, 3;
+    -fx-padding: 8;
+    /*-fx-font-family: "Helvetica";*/
+    -fx-font-family: "Let's go Digital";
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.2), 1, 0.0, 0, 1);
 }

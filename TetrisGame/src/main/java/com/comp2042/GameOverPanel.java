@@ -97,8 +97,8 @@ public class GameOverPanel extends Pane {
         yourScoreLabel.setLayoutX(198);
         yourScoreLabel.setLayoutY(300);
         yourScoreLabel.setOpacity(0);
-        
-        yourScore = new Label("0");                         //String.valueOf(gameController.getBoard().getScore().scoreProperty()));		//Add YOUR SCORE from board/score
+
+    	yourScore = new Label("0");
         yourScore.getStyleClass().add("gameOverStyleFinal");
         yourScore.setLayoutX(198);
         yourScore.setLayoutY(350);
@@ -141,7 +141,7 @@ public class GameOverPanel extends Pane {
         fadeRestartText.setCycleCount(FadeTransition.INDEFINITE);
         
         fadeAllScores.setOnFinished(e -> {
-        	animateScore(yourScore, 0, finalScore);
+    		animateScore(yourScore, 0, finalScore);
         	fadeRestartText.play();
         });
         
@@ -221,7 +221,7 @@ public class GameOverPanel extends Pane {
         highScore.setOpacity(0);
         yourScoreLabel.setOpacity(0);
         yourScore.setOpacity(0);
-        yourScore.setText("0");
+    	yourScore.setText("0");
         restartText.setOpacity(0);
         fadeRestartText.stop();
         if (newHighScoreLabel != null) {
@@ -235,8 +235,12 @@ public class GameOverPanel extends Pane {
     	currentHighScore = HighScoreManager.getHighScore();
     	highScore.setText(String.valueOf(currentHighScore));
     	System.out.println(currentHighScore);
-        
-    	if (score > currentHighScore) {
+        if (GameModes.gameMode == GameModes.SPRINT && currentHighScore == 0) {
+        	if (score != 0) {
+	    		newHighScore = true;
+	        	HighScoreManager.saveHighScore(score);
+        	}
+        } else if (HighScoreManager.isHighScore(score, currentHighScore)) {
     		newHighScore = true;
     		HighScoreManager.saveHighScore(score);
     	} else {

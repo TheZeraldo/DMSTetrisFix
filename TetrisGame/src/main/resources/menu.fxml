@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="600.0" stylesheets="@menuButtons.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.comp2042.MenuController">
    <children>
-       <Button fx:id="startButton" layoutX="207.0" layoutY="160.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#onStartButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="startButton" stylesheets="@menuButtons.css" text="Start Game">
+       <Button id="startButton" layoutX="207.0" layoutY="91.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#onStartButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="startButton" stylesheets="@menuButtons.css" text="Start Game">
          <font>
             <Font name="Courier New Bold" size="20.0" />
          </font></Button>
-       <Button fx:id="exitButton" layoutX="207.0" layoutY="350.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onExitButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="exitButton" stylesheets="@menuButtons.css" text="Exit" />
+      <Button id="startButton" layoutX="207.0" layoutY="232.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#onStartButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="settingsButton" stylesheets="@menuButtons.css" text="Settings">
+         <font>
+            <Font name="Courier New Bold" size="20.0" />
+         </font>
+      </Button>
+       <Button id="exitButton" layoutX="207.0" layoutY="364.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onExitButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="exitButton" stylesheets="@menuButtons.css" text="Exit" />
+      <Pane fx:id="modePane" prefHeight="510.0" prefWidth="600.0" style="-fx-background-color: black;" visible="false">
+         <children>
+            <Button fx:id="classicButton" layoutX="53.0" layoutY="42.0" mnemonicParsing="false" onAction="#setMode" prefHeight="63.0" prefWidth="226.0" styleClass="startButton" text="Classic" />
+            <Button fx:id="hardcoreButton" layoutX="326.0" layoutY="42.0" mnemonicParsing="false" onAction="#setMode" prefHeight="63.0" prefWidth="226.0" styleClass="exitButton" text="Hardcore" />
+            <Button fx:id="timeButton" layoutX="53.0" layoutY="154.0" mnemonicParsing="false" onAction="#setMode" prefHeight="63.0" prefWidth="226.0" styleClass="startButton" text="Time Limit" />
+            <Button fx:id="sprintButton" layoutX="326.0" layoutY="154.0" mnemonicParsing="false" onAction="#setMode" prefHeight="63.0" prefWidth="226.0" styleClass="exitButton" text="Sprint" />
+            <Button fx:id="ultraButton" layoutX="53.0" layoutY="267.0" mnemonicParsing="false" onAction="#setMode" prefHeight="63.0" prefWidth="226.0" styleClass="startButton" text="Ultra" />
+            <Button fx:id="invisButton" layoutX="326.0" layoutY="267.0" mnemonicParsing="false" onAction="#setMode" prefHeight="63.0" prefWidth="226.0" styleClass="exitButton" text="Invisible" />
+            <Button fx:id="bigButton" layoutX="53.0" layoutY="375.0" mnemonicParsing="false" onAction="#setMode" prefHeight="63.0" prefWidth="226.0" styleClass="startButton" text="Big Mode" />
+            <Button fx:id="tonlyButton" layoutX="326.0" layoutY="375.0" mnemonicParsing="false" onAction="#setMode" prefHeight="63.0" prefWidth="226.0" styleClass="exitButton" text="T-Mode" />
+         </children>
+      </Pane>
+      <Label fx:id="descriptionPopup" prefHeight="122.0" prefWidth="226.0" styleClass="ipad-dark-grey" text="Test Text" wrapText="true" />
    </children>
 </AnchorPane>
