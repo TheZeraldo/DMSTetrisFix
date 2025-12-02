@@ -77,6 +77,33 @@ public class GuiController implements Initializable {
     @FXML
     private VBox levelVBox;
     
+    @FXML
+    private Label quitLabel;
+    
+    @FXML
+    private Label pauseLabel;
+    
+    @FXML
+    private Label restartLabel;
+    
+    @FXML
+    private Label holdLabel;
+    
+    @FXML
+    private Label rotateLabel;
+    
+    @FXML
+    private Label leftLabel;
+    
+    @FXML
+    private Label rightLabel;
+    
+    @FXML
+    private Label softDropLabel;
+    
+    @FXML
+    private Label hardDropLabel;
+    
     private Main main;
 
     private Rectangle[][] displayMatrix;
@@ -110,46 +137,47 @@ public class GuiController implements Initializable {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (isPause.getValue() == Boolean.FALSE && isGameOver.getValue() == Boolean.FALSE) {
-                    if (keyEvent.getCode() == KeyCode.LEFT || keyEvent.getCode() == KeyCode.A) {
+                    if (keyEvent.getCode() == KeyBinds.getKey("Move Left")) {
                         refreshBrick(eventListener.onLeftEvent(new MoveEvent(EventType.LEFT, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == KeyCode.RIGHT || keyEvent.getCode() == KeyCode.D) {
+                    if (keyEvent.getCode() == KeyBinds.getKey("Move Right")) {
                         refreshBrick(eventListener.onRightEvent(new MoveEvent(EventType.RIGHT, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == KeyCode.UP || keyEvent.getCode() == KeyCode.W) {
+                    if (keyEvent.getCode() == KeyBinds.getKey("Rotate")) {
                         refreshBrick(eventListener.onRotateEvent(new MoveEvent(EventType.ROTATE, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == KeyCode.DOWN || keyEvent.getCode() == KeyCode.S) {
+                    if (keyEvent.getCode() == KeyBinds.getKey("Soft Drop")) {
                         moveDown(new MoveEvent(EventType.DOWN, EventSource.USER));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == KeyCode.SPACE) {
+                    if (keyEvent.getCode() == KeyBinds.getKey("Hard Drop")) {
                         hardDrop(new MoveEvent(EventType.DOWN, EventSource.USER));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == KeyCode.C) {
+                    if (keyEvent.getCode() == KeyBinds.getKey("Hold")) {
                         refreshBrick(eventListener.onHoldEvent(new MoveEvent(EventType.ROTATE, EventSource.USER)));
                         keyEvent.consume();
                     }
                 }
                 if (isGameOver.getValue() == Boolean.FALSE) {
-                	if (keyEvent.getCode() == KeyCode.P) {
+                	if (keyEvent.getCode() == KeyBinds.getKey("Pause")) {
                 		pauseGame(null);
                         keyEvent.consume();
                     }
                 }
-            	if (keyEvent.getCode() == KeyCode.ESCAPE) {
+            	if (keyEvent.getCode() == KeyBinds.getKey("Main Menu")) {
             		returnToMainMenu();
                     keyEvent.consume();
                 }
-                if (keyEvent.getCode() == KeyCode.N) {
+                if (keyEvent.getCode() == KeyBinds.getKey("New Game")) {
                     newGame(null);
                 }
             }
         });
+        updateControlsPane();
         gameOverPanel.setVisible(false);
 
         final Reflection reflection = new Reflection();
@@ -158,7 +186,7 @@ public class GuiController implements Initializable {
         reflection.setTopOffset(-12);
     }
 
-    public void initGameView(int[][] boardMatrix, ViewData brick) {
+	public void initGameView(int[][] boardMatrix, ViewData brick) {
         displayMatrix = new Rectangle[boardMatrix.length][boardMatrix[0].length];
         for (int i = 2; i < boardMatrix.length; i++) {
             for (int j = 0; j < boardMatrix[i].length; j++) {
@@ -352,6 +380,18 @@ public class GuiController implements Initializable {
             }
         }
     }
+
+    private void updateControlsPane() {
+		quitLabel.setText(KeyBinds.getKey("Main Menu") + " - Quit Game");
+		pauseLabel.setText(KeyBinds.getKey("Pause") + " - Pause Game");
+		restartLabel.setText(KeyBinds.getKey("New Game") + " - Restart Game");
+		holdLabel.setText(KeyBinds.getKey("Hold") + " - Hold Piece");
+		rotateLabel.setText(KeyBinds.getKey("Rotate") + " - Rotate Piece");
+		leftLabel.setText(KeyBinds.getKey("Move Left") + " - Move Left");
+		rightLabel.setText(KeyBinds.getKey("Move Right") + " - Move Right");
+		softDropLabel.setText(KeyBinds.getKey("Soft Drop") + " - Soft Drop");
+		hardDropLabel.setText(KeyBinds.getKey("Hard Drop") + " - Hard Drop");
+	}
 
     private void setRectangleData(int color, Rectangle rectangle) {
         rectangle.setFill(getFillColor(color));

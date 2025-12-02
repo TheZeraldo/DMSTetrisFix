@@ -68,8 +68,8 @@ public class GameController implements InputEventListener {
         		viewGuiController.increaseTimer(clearRow.getLinesRemoved() * 10);
         	}
             board.getScore().add(clearRow.getScoreBonus());
-            //board.getScore().addLines(clearRow.getLinesRemoved());
-            board.getScore().addLines(10);
+            board.getScore().addLines(clearRow.getLinesRemoved());
+            //board.getScore().addLines(10);
             if (GameModes.gameMode == GameModes.SPRINT && board.getScore().linesLeft() == 0) {
                 viewGuiController.gameOver(false);
             } else {

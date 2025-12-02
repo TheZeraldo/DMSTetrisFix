@@ -62,6 +62,38 @@
 	-fx-border-insets: -2;
 }
 
+.highScoresButton
+{
+	-fx-font-family: "Let's go Digital";
+	-fx-font-size: 30;
+	-fx-background-color : #FFD700;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 2; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.highScoresButton:hover
+{
+	-fx-background-color : #FFC300;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 2; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
+.highScoresButton:pressed
+{
+	-fx-background-color : #E6B800;
+	-fx-background-radius : 6;
+	-fx-border-color: black; 
+	-fx-border-width: 6; 
+	-fx-border-radius: 6;
+	-fx-border-insets: -2;
+}
+
 .exitButton
 {
 	-fx-font-family: "Let's go Digital";
@@ -92,6 +124,41 @@
 	-fx-border-width: 6; 
 	-fx-border-radius: 6;
 	-fx-border-insets: -2;
+}
+
+.keybindButton
+{
+	-fx-font-family: "Let's go Digital";
+	-fx-font-size: 20;
+    -fx-text-fill: white;
+	-fx-background-color : #222222;
+	-fx-background-radius : 6;
+}
+
+.keybindButton:hover
+{
+	-fx-background-color : #444444;
+	-fx-background-radius : 6;
+}
+
+.keybindButton:pressed
+{
+	-fx-background-color : #666666;
+	-fx-background-radius : 6;
+}
+
+.highScoreLabelClass {
+    -fx-font-family: "Let's go Digital";
+	-fx-font-size: 60;
+	-fx-text-fill: gold;
+	-fx-font-weight: bold;
+}
+
+.settingsLabelClass {
+	-fx-font-family: "Let's go Digital";
+    -fx-font-size: 50;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
 }
 
 .ipad-dark-grey {

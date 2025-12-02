@@ -68,6 +68,11 @@ public class HighScoreManager {
 		return highScoresMap.getOrDefault(mode, 0);
 	}
 	
+	public static Map<String, Integer> getAllHighScores() {
+		loadAllHighScores();
+		return highScoresMap;
+	}
+	
 	public static boolean isHighScore(int score, int highScore) {
 		if (GameModes.gameMode == GameModes.SPRINT) {
 			return score < highScore;

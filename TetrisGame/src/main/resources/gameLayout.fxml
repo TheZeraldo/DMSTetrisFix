@@ -25,15 +25,15 @@
       <children>
          <VBox layoutY="5.0" prefHeight="269.0" prefWidth="200.0">
             <children>
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="200.0" styleClass="optionsClass" text="Esc - Quit Game" />
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="205.0" styleClass="optionsClass" text="P - Pause Game" />
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="205.0" styleClass="optionsClass" text="N - Restart Game" />
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="210.0" styleClass="optionsClass" text="C - Hold Piece" />
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="204.0" styleClass="optionsClass" text="↑/W - Rotate Piece" />
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="212.0" styleClass="optionsClass" text="←/A - Move Left" />
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="214.0" styleClass="optionsClass" text="→/D - Move Right" />
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="233.0" styleClass="optionsClass" text="↓/S - Soft Drop" />
-               <Label alignment="CENTER" prefHeight="30.0" prefWidth="223.0" styleClass="optionsClass" text="SPACE - Hard Drop" />
+               <Label fx:id="quitLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" styleClass="optionsClass" text="Esc - Quit Game" />
+               <Label fx:id="pauseLabel" alignment="CENTER" prefHeight="30.0" prefWidth="205.0" styleClass="optionsClass" text="P - Pause Game" />
+               <Label fx:id="restartLabel" alignment="CENTER" prefHeight="30.0" prefWidth="205.0" styleClass="optionsClass" text="N - Restart Game" />
+               <Label fx:id="holdLabel" alignment="CENTER" prefHeight="30.0" prefWidth="210.0" styleClass="optionsClass" text="C - Hold Piece" />
+               <Label fx:id="rotateLabel" alignment="CENTER" prefHeight="30.0" prefWidth="204.0" styleClass="optionsClass" text="↑ - Rotate Piece" />
+               <Label fx:id="leftLabel" alignment="CENTER" prefHeight="30.0" prefWidth="212.0" styleClass="optionsClass" text="← - Move Left" />
+               <Label fx:id="rightLabel" alignment="CENTER" prefHeight="30.0" prefWidth="214.0" styleClass="optionsClass" text="→ - Move Right" />
+               <Label fx:id="softDropLabel" alignment="CENTER" prefHeight="30.0" prefWidth="233.0" styleClass="optionsClass" text="↓ - Soft Drop" />
+               <Label fx:id="hardDropLabel" alignment="CENTER" prefHeight="30.0" prefWidth="223.0" styleClass="optionsClass" text="SPACE - Hard Drop" />
             </children>
          </VBox>
       </children>
