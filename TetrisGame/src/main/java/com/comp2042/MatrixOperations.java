@@ -91,6 +91,32 @@ public class MatrixOperations {
         int scoreBonus = 50 * clearedRows.size() * clearedRows.size();
         return new ClearRow(clearedRows.size(), tmp, scoreBonus);
     }
+    
+    public static int[][] applyBigMode(int[][] shape) {
+    	int rows = shape.length;
+    	int columns = shape[0].length;
+    	int[][] bigShape = new int[rows*2][columns*2];
+    	
+    	for (int i = 0; i < rows; i++) {
+    		for (int j = 0; j < columns; j++) {
+    			int value = shape[i][j];
+    			bigShape[i * 2][j * 2] = value;
+    			bigShape[i * 2 + 1][j * 2] = value;
+    			bigShape[i * 2][j * 2 + 1] = value;
+    			bigShape[i * 2 + 1][j * 2 + 1] = value;
+    		}
+    	}
+    		
+    	return bigShape;
+    }
+    
+    public static List<int[][]> bigModeList(List<int[][]> shapeList) {
+    	List<int[][]> bigList = new ArrayList<>();
+    	for (int[][] shape : shapeList) {
+    		bigList.add(applyBigMode(shape));
+    	}
+    	return bigList;
+    }
 
     public static List<int[][]> deepCopyList(List<int[][]> list){
         return list.stream().map(MatrixOperations::copy).collect(Collectors.toList());

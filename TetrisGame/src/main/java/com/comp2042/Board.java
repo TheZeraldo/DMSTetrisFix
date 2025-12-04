@@ -1,5 +1,7 @@
 package com.comp2042;
 
+import com.comp2042.logic.bricks.Brick;
+
 public interface Board {
 
     boolean moveBrickDown();
@@ -19,8 +21,18 @@ public interface Board {
     void mergeBrickToBackground();
 
     ClearRow clearRows();
+    
+    int getLandingYPosition();
+    
+    Brick getNextBrick();
 
     Score getScore();
 
     void newGame();
+    
+    boolean canHold();
+    
+    void holdBrick();
+    
+    Brick getHeldbrick();
 }
