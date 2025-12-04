@@ -1,4 +1,4 @@
-package com.comp2042;
+package com.comp2042.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;

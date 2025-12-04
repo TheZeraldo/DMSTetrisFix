@@ -1,4 +1,7 @@
-package com.comp2042;
+package com.comp2042.ui;
+
+import com.comp2042.utils.GameModes;
+import com.comp2042.utils.HighScoreManager;
 
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;

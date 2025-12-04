@@ -6,7 +6,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.comp2042.GameModes;
+import com.comp2042.utils.GameModes;
 
 public class RandomBrickGenerator implements BrickGenerator {
 

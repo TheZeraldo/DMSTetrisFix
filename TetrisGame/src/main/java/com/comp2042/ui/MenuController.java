@@ -1,8 +1,14 @@
-package com.comp2042;
+package com.comp2042.ui;
 
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import com.comp2042.main.GameStates;
+import com.comp2042.main.Main;
+import com.comp2042.utils.GameModes;
+import com.comp2042.utils.HighScoreManager;
+import com.comp2042.utils.KeyBinds;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -90,7 +96,7 @@ public class MenuController {
     
     private Button waitingForKey = null;
     
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
     	Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(), 38);
     	modePane.setVisible(false);
     	descriptionPopup.setVisible(false);

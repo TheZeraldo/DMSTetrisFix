@@ -1,4 +1,4 @@
-package com.comp2042;
+package com.comp2042.utils;
 
 public enum GameModes {
 
@@ -10,7 +10,6 @@ public enum GameModes {
 	INVISIBLE,	//Blocks become invisible after they land
 	BIG,		//Pieces are 2x as large
 	TONLY;		//Only T-pieces
-	//TODO: Consider Item Mode, aka powerups
 
 	public static GameModes gameMode = CLASSIC;
 	
