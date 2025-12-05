@@ -1,4 +1,4 @@
-package com.comp2042.ui;
+package com.comp2042.ui.managers;
 
 import com.comp2042.utils.KeyBinds;
 

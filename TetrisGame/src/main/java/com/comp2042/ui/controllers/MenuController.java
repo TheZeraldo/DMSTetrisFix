@@ -1,4 +1,4 @@
-package com.comp2042.ui;
+package com.comp2042.ui.controllers;
 
 import java.net.URL;
 import java.util.Map;
@@ -6,6 +6,9 @@ import java.util.ResourceBundle;
 
 import com.comp2042.main.GameStates;
 import com.comp2042.main.Main;
+import com.comp2042.ui.managers.HighScoreDisplay;
+import com.comp2042.ui.managers.KeyBindEditor;
+import com.comp2042.ui.managers.ModeButtonManager;
 import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 import com.comp2042.utils.HighScoreManager;

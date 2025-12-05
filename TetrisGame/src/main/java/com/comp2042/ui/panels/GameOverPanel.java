@@ -1,4 +1,4 @@
-package com.comp2042.ui;
+package com.comp2042.ui.panels;
 
 import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;

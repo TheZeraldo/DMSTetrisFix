@@ -1,5 +1,6 @@
-package com.comp2042.ui;
+package com.comp2042.ui.managers;
 
+import com.comp2042.ui.controllers.GuiController;
 import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 

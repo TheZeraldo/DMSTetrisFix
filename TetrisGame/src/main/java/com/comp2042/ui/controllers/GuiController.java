@@ -1,4 +1,4 @@
-package com.comp2042.ui;
+package com.comp2042.ui.controllers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -38,6 +38,11 @@ import com.comp2042.main.GameStates;
 import com.comp2042.main.Main;
 import com.comp2042.model.DownData;
 import com.comp2042.model.ViewData;
+import com.comp2042.ui.managers.BrickRenderer;
+import com.comp2042.ui.managers.ScoreManager;
+import com.comp2042.ui.managers.TimerManager;
+import com.comp2042.ui.panels.GameOverPanel;
+import com.comp2042.ui.panels.NotificationPanel;
 import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 import com.comp2042.utils.KeyBinds;

@@ -6,7 +6,7 @@ import com.comp2042.events.MoveEvent;
 import com.comp2042.model.ClearRow;
 import com.comp2042.model.DownData;
 import com.comp2042.model.ViewData;
-import com.comp2042.ui.GuiController;
+import com.comp2042.ui.controllers.GuiController;
 import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 

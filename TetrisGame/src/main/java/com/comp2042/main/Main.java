@@ -10,8 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.comp2042.logic.game.GameController;
-import com.comp2042.ui.GuiController;
-import com.comp2042.ui.MenuController;
+import com.comp2042.ui.controllers.GuiController;
+import com.comp2042.ui.controllers.MenuController;
 
 public class Main extends Application {
 	

@@ -1,4 +1,4 @@
-package com.comp2042.ui;
+package com.comp2042.ui.managers;
 
 import com.comp2042.events.EventSource;
 import com.comp2042.events.EventType;
@@ -6,6 +6,7 @@ import com.comp2042.events.MoveEvent;
 import com.comp2042.logic.bricks.Brick;
 import com.comp2042.model.DownData;
 import com.comp2042.model.ViewData;
+import com.comp2042.ui.controllers.GuiController;
 import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 
