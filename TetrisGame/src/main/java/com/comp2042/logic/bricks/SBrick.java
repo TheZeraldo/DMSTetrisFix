@@ -1,6 +1,7 @@
 package com.comp2042.logic.bricks;
 
 import com.comp2042.logic.game.MatrixOperations;
+import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ final class SBrick implements Brick {
                 {0, 0, 0, 0}
         });
         
-        if (GameModes.gameMode == GameModes.BIG) {
+        if (GameModeManager.getGameMode() == GameModes.BIG) {
         	List<int[][]> temp = MatrixOperations.bigModeList(brickMatrix);
         	brickMatrix.clear();
         	brickMatrix.addAll(temp);

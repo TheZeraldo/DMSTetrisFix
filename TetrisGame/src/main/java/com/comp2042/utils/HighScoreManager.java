@@ -13,6 +13,7 @@ public class HighScoreManager {
 	private static Map<String, Integer> highScoresMap = new HashMap<>();
 	
 	public static void loadAllHighScores() {
+		highScoresMap.clear();
 		File highScoreFile = new File(HIGH_SCORE_FILENAME);
 		if (!highScoreFile.exists()) {
 			return;
@@ -35,21 +36,13 @@ public class HighScoreManager {
 	}
 	
 	public static void saveHighScore(int highScore) {
-		String mode = GameModes.GetGameModeName();
+		String mode = GameModeManager.getGameModeName();
 		highScoresMap.put(mode, highScore);
 		saveAllHighScores();
 	}
 	
 	public static void saveAllHighScores() {
 		File highScoreFile = new File(HIGH_SCORE_FILENAME);
-		if (!highScoreFile.exists()) {
-			try {
-				highScoreFile.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		try {
 			PrintWriter pw = new PrintWriter(highScoreFile);
 			for (Map.Entry<String, Integer> entry : highScoresMap.entrySet()) {
@@ -64,17 +57,17 @@ public class HighScoreManager {
 	
 	public static int getHighScore() {
 		loadAllHighScores();
-		String mode = GameModes.GetGameModeName();
+		String mode = GameModeManager.getGameModeName();
 		return highScoresMap.getOrDefault(mode, 0);
 	}
 	
 	public static Map<String, Integer> getAllHighScores() {
 		loadAllHighScores();
-		return highScoresMap;
+		return Map.copyOf(highScoresMap);
 	}
 	
 	public static boolean isHighScore(int score, int highScore) {
-		if (GameModes.gameMode == GameModes.SPRINT) {
+		if (GameModeManager.getGameMode() == GameModes.SPRINT) {
 			return score < highScore;
 		} else {
 			return score > highScore;

@@ -1,7 +1,6 @@
 package com.comp2042.utils;
 
 public enum GameModes {
-
 	CLASSIC,
 	HARDCORE,	//Fast gravity
 	TIME,		//Adds time for lines cleared
@@ -10,18 +9,8 @@ public enum GameModes {
 	INVISIBLE,	//Blocks become invisible after they land
 	BIG,		//Pieces are 2x as large
 	TONLY;		//Only T-pieces
-
-	public static GameModes gameMode = CLASSIC;
 	
-	public static void SetGameMode(GameModes mode) {
-		gameMode = mode;
-	}
-	
-	public static String GetGameModeName() {
-		return gameMode.name();
-	}
-	
-	public static String GetGameModeDescription(GameModes mode) {       
+	public static String getGameModeDescription(GameModes mode) {       
 		return switch (mode) {
 		    case CLASSIC -> "Standard Tetris, clear lines to score, speed increases per level";
 		    case HARDCORE -> "Game starts at max fall speed";

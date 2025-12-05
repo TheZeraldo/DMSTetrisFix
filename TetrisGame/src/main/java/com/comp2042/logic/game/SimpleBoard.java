@@ -7,6 +7,7 @@ import com.comp2042.model.ClearRow;
 import com.comp2042.model.NextShapeInfo;
 import com.comp2042.model.Score;
 import com.comp2042.model.ViewData;
+import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 
 import java.awt.*;
@@ -92,7 +93,7 @@ public class SimpleBoard implements Board {
     public boolean createNewBrick() {
         Brick currentBrick = brickGenerator.getBrick();
         brickRotator.setBrick(currentBrick);
-        if (GameModes.gameMode == GameModes.BIG) {
+        if (GameModeManager.getGameMode() == GameModes.BIG) {
             currentOffset = new Point(2, 1);
         } else {
             currentOffset = new Point(4, 1);
@@ -154,7 +155,7 @@ public class SimpleBoard implements Board {
 				heldBrick = currentBrick;
 		        brickRotator.setBrick(temp);
 		        brickRotator.setCurrentShape(0);
-		        if (GameModes.gameMode == GameModes.BIG) {
+		        if (GameModeManager.getGameMode() == GameModes.BIG) {
 		            currentOffset = new Point(2, 1);
 		        } else {
 		            currentOffset = new Point(4, 1);

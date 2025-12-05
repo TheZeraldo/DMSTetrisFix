@@ -1,5 +1,6 @@
 package com.comp2042.model;
 
+import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 
 import javafx.beans.property.IntegerProperty;
@@ -26,7 +27,7 @@ public final class Score {
     public void addLines(int clearedLines) {
         lines.setValue(lines.getValue() + clearedLines);
         
-        if (GameModes.gameMode == GameModes.SPRINT) {
+        if (GameModeManager.getGameMode() == GameModes.SPRINT) {
         	return;
         }
         
@@ -36,7 +37,7 @@ public final class Score {
     }
     
     public int linesLeft() {
-    	if (GameModes.gameMode == GameModes.SPRINT) {
+    	if (GameModeManager.getGameMode() == GameModes.SPRINT) {
     		return 40 - lines.getValue();
     	} else {
     		return 10 - (lines.getValue() % 10);

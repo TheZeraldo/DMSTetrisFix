@@ -1,5 +1,6 @@
 package com.comp2042.ui;
 
+import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 import com.comp2042.utils.HighScoreManager;
 
@@ -238,7 +239,7 @@ public class GameOverPanel extends Pane {
     	currentHighScore = HighScoreManager.getHighScore();
     	highScore.setText(String.valueOf(currentHighScore));
     	System.out.println(currentHighScore);
-        if (GameModes.gameMode == GameModes.SPRINT && currentHighScore == 0) {
+        if (GameModeManager.getGameMode() == GameModes.SPRINT && currentHighScore == 0) {
         	if (score != 0) {
 	    		newHighScore = true;
 	        	HighScoreManager.saveHighScore(score);

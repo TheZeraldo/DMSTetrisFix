@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 
 public class RandomBrickGenerator implements BrickGenerator {
@@ -16,7 +17,7 @@ public class RandomBrickGenerator implements BrickGenerator {
 
     public RandomBrickGenerator() {
         brickList = new ArrayList<>();
-        if (GameModes.gameMode == GameModes.TONLY) {
+        if (GameModeManager.getGameMode() == GameModes.TONLY) {
             brickList.add(new TBrick());
         } else {
 	        brickList.add(new IBrick());

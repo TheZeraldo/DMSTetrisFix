@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.comp2042.main.GameStates;
 import com.comp2042.main.Main;
+import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 import com.comp2042.utils.HighScoreManager;
 import com.comp2042.utils.KeyBinds;
@@ -140,7 +141,7 @@ public class MenuController {
     }
     
     void onModeButtonHover(Button button, GameModes mode) {
-    	button.setOnMouseEntered(e -> showPopup(button, GameModes.GetGameModeDescription(mode)));
+    	button.setOnMouseEntered(e -> showPopup(button, GameModes.getGameModeDescription(mode)));
     	button.setOnMouseExited(e -> hidePopup());
     }
     
@@ -198,23 +199,6 @@ public class MenuController {
     		scene.addEventFilter(KeyEvent.KEY_PRESSED, eventHandler);
     	});
     }
-    
-//    private void setupKeyBindButton(Button button, String action) {
-//    	button.setText(KeyBinds.getKey(action).toString());
-//    	
-//    	button.setOnAction(e -> {
-//    		waitingForKey = button;
-//    		button.setText("Press a key...");
-//    		
-//    		button.getScene().setOnKeyPressed(event -> {
-//    			KeyCode key = event.getCode();
-//    			KeyBinds.setKey(action, key);
-//    			button.setText(KeyBinds.getKey(action).toString());
-//    			button.getScene().setOnKeyPressed(null);
-//    			waitingForKey = null;
-//    		});
-//    	});
-//    }
 
     @FXML
     void onExitButtonPressed(ActionEvent event) {
@@ -252,28 +236,28 @@ public class MenuController {
     	
     	switch (clicked.getText()) {
 			case "Classic":
-				GameModes.SetGameMode(GameModes.CLASSIC);
+				GameModeManager.setGameMode(GameModes.CLASSIC);
 				break;
 			case "Hardcore":
-				GameModes.SetGameMode(GameModes.HARDCORE);
+				GameModeManager.setGameMode(GameModes.HARDCORE);
 				break;
 			case "Time Limit":
-				GameModes.SetGameMode(GameModes.TIME);
+				GameModeManager.setGameMode(GameModes.TIME);
 				break;
 			case "Sprint":
-				GameModes.SetGameMode(GameModes.SPRINT);
+				GameModeManager.setGameMode(GameModes.SPRINT);
 				break;
 			case "Ultra":
-				GameModes.SetGameMode(GameModes.ULTRA);
+				GameModeManager.setGameMode(GameModes.ULTRA);
 				break;
 			case "Invisible":
-				GameModes.SetGameMode(GameModes.INVISIBLE);
+				GameModeManager.setGameMode(GameModes.INVISIBLE);
 				break;
 			case "Big Mode":
-				GameModes.SetGameMode(GameModes.BIG);
+				GameModeManager.setGameMode(GameModes.BIG);
 				break;
 			case "T-Mode":
-				GameModes.SetGameMode(GameModes.TONLY);
+				GameModeManager.setGameMode(GameModes.TONLY);
 				break;
 		}
     	

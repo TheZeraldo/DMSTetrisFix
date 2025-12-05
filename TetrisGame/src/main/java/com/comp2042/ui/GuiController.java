@@ -38,6 +38,7 @@ import com.comp2042.main.GameStates;
 import com.comp2042.main.Main;
 import com.comp2042.model.DownData;
 import com.comp2042.model.ViewData;
+import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 import com.comp2042.utils.KeyBinds;
 
@@ -218,8 +219,8 @@ public class GuiController implements Initializable {
                 brickPanel.add(rectangle, j, i);
             }
         }
-        brickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getxPosition() * brickPanel.getVgap() + brick.getxPosition() * BRICK_SIZE);
-        brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getyPosition() * brickPanel.getHgap() + brick.getyPosition() * BRICK_SIZE);
+        brickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getXPosition() * brickPanel.getVgap() + brick.getXPosition() * BRICK_SIZE);
+        brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getYPosition() * brickPanel.getHgap() + brick.getYPosition() * BRICK_SIZE);
 
         ghostRectangles = new Rectangle[brick.getBrickData().length][brick.getBrickData()[0].length];
         for (int i = 0; i < brick.getBrickData().length; i++) {
@@ -236,10 +237,10 @@ public class GuiController implements Initializable {
                 ghostBrickPanel.add(rectangle, j, i);
             }
         }
-        ghostBrickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getxPosition() * ghostBrickPanel.getVgap() + brick.getxPosition() * BRICK_SIZE);
+        ghostBrickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getXPosition() * ghostBrickPanel.getVgap() + brick.getXPosition() * BRICK_SIZE);
         ghostBrickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getLandingYPosition() * ghostBrickPanel.getHgap() + brick.getLandingYPosition() * BRICK_SIZE);
 
-        if (GameModes.gameMode == GameModes.SPRINT) {
+        if (GameModeManager.getGameMode() == GameModes.SPRINT) {
         	scoreVBox.setVisible(false);
         	levelVBox.setVisible(false);
         } else {
@@ -247,11 +248,11 @@ public class GuiController implements Initializable {
         	levelVBox.setVisible(true);
 		}
         updateFallSpeed(400);
-        if (GameModes.gameMode == GameModes.TIME) {
+        if (GameModeManager.getGameMode() == GameModes.TIME) {
         	timer = 20;
             timeDisplay.setText(String.valueOf(timer));
         	countdownTimer();
-        } else if (GameModes.gameMode == GameModes.ULTRA) {
+        } else if (GameModeManager.getGameMode() == GameModes.ULTRA) {
         	timer = 120;
             timeDisplay.setText(String.valueOf(timer));
         	countdownTimer();
@@ -267,7 +268,7 @@ public class GuiController implements Initializable {
     	if (timeLine != null) {
         	timeLine.stop();
     	}
-    	if (GameModes.gameMode == GameModes.HARDCORE) {
+    	if (GameModeManager.getGameMode() == GameModes.HARDCORE) {
 	        timeLine = new Timeline(new KeyFrame(
 	                Duration.millis(100),
 	                ae -> moveDown(new MoveEvent(EventType.DOWN, EventSource.THREAD))
@@ -357,10 +358,10 @@ public class GuiController implements Initializable {
 
     private void refreshBrick(ViewData brick) {
         if (isPause.getValue() == Boolean.FALSE) {
-            brickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getxPosition() * brickPanel.getVgap() + brick.getxPosition() * BRICK_SIZE);
-            brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getyPosition() * brickPanel.getHgap() + brick.getyPosition() * BRICK_SIZE);
+            brickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getXPosition() * brickPanel.getVgap() + brick.getXPosition() * BRICK_SIZE);
+            brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getYPosition() * brickPanel.getHgap() + brick.getYPosition() * BRICK_SIZE);
 
-            ghostBrickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getxPosition() * ghostBrickPanel.getVgap() + brick.getxPosition() * BRICK_SIZE);
+            ghostBrickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getXPosition() * ghostBrickPanel.getVgap() + brick.getXPosition() * BRICK_SIZE);
             ghostBrickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getLandingYPosition() * ghostBrickPanel.getHgap() + brick.getLandingYPosition() * BRICK_SIZE);
             
             for (int i = 0; i < brick.getBrickData().length; i++) {
@@ -382,7 +383,7 @@ public class GuiController implements Initializable {
     public void refreshGameBackground(int[][] board) {
         for (int i = 2; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-            	if (GameModes.gameMode == GameModes.INVISIBLE) {
+            	if (GameModeManager.getGameMode() == GameModes.INVISIBLE) {
             		setRectangleData(0, displayMatrix[i][j]);
             	} else {
             		setRectangleData(board[i][j], displayMatrix[i][j]);
@@ -459,7 +460,7 @@ public class GuiController implements Initializable {
     public void gameOver(boolean diedByOverflow) {
         timeLine.stop();
         timerTimeline.stop();
-        if (GameModes.gameMode == GameModes.SPRINT) {
+        if (GameModeManager.getGameMode() == GameModes.SPRINT) {
         	if (diedByOverflow) {
         		gameOverPanel.setScore(0);
         	} else {
@@ -474,11 +475,11 @@ public class GuiController implements Initializable {
 
     public void newGame(ActionEvent actionEvent) {
         timeLine.stop();
-        if (GameModes.gameMode == GameModes.TIME) {
+        if (GameModeManager.getGameMode() == GameModes.TIME) {
         	timer = 20;
             timeDisplay.setText(String.valueOf(timer));
         	countdownTimer();
-        } else if (GameModes.gameMode == GameModes.ULTRA) {
+        } else if (GameModeManager.getGameMode() == GameModes.ULTRA) {
         	timer = 120;
             timeDisplay.setText(String.valueOf(timer));
         	countdownTimer();
