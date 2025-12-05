@@ -35,12 +35,7 @@ public class NotificationPanel extends BorderPane {
         ft.setFromValue(1);
         ft.setToValue(0);
         ParallelTransition transition = new ParallelTransition(tt, ft);
-        transition.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                list.remove(NotificationPanel.this);
-            }
-        });
+        transition.setOnFinished(e -> list.remove(this));
         transition.play();
     }
 }

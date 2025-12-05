@@ -95,8 +95,6 @@ public class MenuController {
     @FXML
     private Button newGameKeyBindButton;
     
-    private Button waitingForKey = null;
-    
     public void initialize() {
     	Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(), 38);
     	modePane.setVisible(false);
@@ -110,26 +108,26 @@ public class MenuController {
     }
     
     private void initKeyBindButtons() {
-    	setupKeyBindButton(leftKeyBindButton, "Move Left");
-    	setupKeyBindButton(rightKeyBindButton, "Move Right");
-    	setupKeyBindButton(rotateKeyBindButton, "Rotate");
-    	setupKeyBindButton(softDropKeyBindButton, "Soft Drop");
-    	setupKeyBindButton(hardDropKeyBindButton, "Hard Drop");
-    	setupKeyBindButton(holdKeyBindButton, "Hold");
-    	setupKeyBindButton(pauseKeyBindButton, "Pause");
-    	setupKeyBindButton(menuKeyBindButton, "Main Menu");
-    	setupKeyBindButton(newGameKeyBindButton, "New Game");
+    	KeyBindEditor.setup(leftKeyBindButton, "Move Left");
+    	KeyBindEditor.setup(rightKeyBindButton, "Move Right");
+    	KeyBindEditor.setup(rotateKeyBindButton, "Rotate");
+    	KeyBindEditor.setup(softDropKeyBindButton, "Soft Drop");
+    	KeyBindEditor.setup(hardDropKeyBindButton, "Hard Drop");
+    	KeyBindEditor.setup(holdKeyBindButton, "Hold");
+    	KeyBindEditor.setup(pauseKeyBindButton, "Pause");
+    	KeyBindEditor.setup(menuKeyBindButton, "Main Menu");
+    	KeyBindEditor.setup(newGameKeyBindButton, "New Game");
 	}
     
     private void initModeButtons() {
-    	onModeButtonHover(classicButton, GameModes.CLASSIC);
-    	onModeButtonHover(hardcoreButton, GameModes.HARDCORE);
-    	onModeButtonHover(timeButton, GameModes.TIME);
-    	onModeButtonHover(sprintButton, GameModes.SPRINT);
-    	onModeButtonHover(ultraButton, GameModes.ULTRA);
-    	onModeButtonHover(invisButton, GameModes.INVISIBLE);
-    	onModeButtonHover(bigButton, GameModes.BIG);
-    	onModeButtonHover(tonlyButton, GameModes.TONLY);
+    	ModeButtonManager.setup(classicButton, GameModes.CLASSIC, descriptionPopup, modePane);
+    	ModeButtonManager.setup(hardcoreButton, GameModes.HARDCORE, descriptionPopup, modePane);
+    	ModeButtonManager.setup(timeButton, GameModes.TIME, descriptionPopup, modePane);
+    	ModeButtonManager.setup(sprintButton, GameModes.SPRINT, descriptionPopup, modePane);
+    	ModeButtonManager.setup(ultraButton, GameModes.ULTRA, descriptionPopup, modePane);
+    	ModeButtonManager.setup(invisButton, GameModes.INVISIBLE, descriptionPopup, modePane);
+    	ModeButtonManager.setup(bigButton, GameModes.BIG, descriptionPopup, modePane);
+    	ModeButtonManager.setup(tonlyButton, GameModes.TONLY, descriptionPopup, modePane);
     }
 
 	public void setPrimaryStage(Stage stage) {
@@ -138,66 +136,6 @@ public class MenuController {
     
     public void setMain(Main main) {
     	this.main = main;
-    }
-    
-    void onModeButtonHover(Button button, GameModes mode) {
-    	button.setOnMouseEntered(e -> showPopup(button, GameModes.getGameModeDescription(mode)));
-    	button.setOnMouseExited(e -> hidePopup());
-    }
-    
-    void showPopup(Button button, String description) {
-    	descriptionPopup.setText(description);
-    	descriptionPopup.setVisible(true);
-    	
-    	
-    	double buttonX = button.getLayoutX();
-    	double buttonY = button.getLayoutY();
-    	double buttonHeight = button.getHeight();
-    	
-    	double popupX = buttonX;
-    	double popupY = buttonY + buttonHeight;
-    	double popupHeight = descriptionPopup.getHeight();
-    	
-    	double paneHeight = modePane.getHeight();
-    	
-    	if (popupY + popupHeight > paneHeight) {
-    		popupY = buttonY - popupHeight;
-    	}
-    	
-    	descriptionPopup.setLayoutX(popupX);
-    	descriptionPopup.setLayoutY(popupY);
-    }
-    
-    void hidePopup() {
-    	descriptionPopup.setVisible(false);
-    }
-    
-    private void setupKeyBindButton(Button button, String action) {
-    	button.setText(KeyBinds.getKey(action).toString());
-    	
-    	button.setOnAction(e -> {
-    		waitingForKey = button;
-    		button.setText("Press a key...");
-    		
-    		Scene scene = button.getScene();
-    		
-    		EventHandler<KeyEvent> eventHandler = new EventHandler<KeyEvent>() {
-    			@Override
-    			public void handle(KeyEvent event) {
-    				KeyCode key = event.getCode();
-    				if (KeyBinds.setKey(action, key)) {
-    					button.setText(key.toString());
-    				} else {
-    					button.setText("Key already in use!");
-    				}
-    				
-    				waitingForKey = null;
-    				scene.removeEventFilter(KeyEvent.KEY_PRESSED, this);
-    			}
-    		};
-    		
-    		scene.addEventFilter(KeyEvent.KEY_PRESSED, eventHandler);
-    	});
     }
 
     @FXML
@@ -212,16 +150,7 @@ public class MenuController {
 
     @FXML
     void displayHighScores(ActionEvent event) {
-    	highScoresVBox.getChildren().clear();
-    	
-    	for (Map.Entry<String, Integer> entry : HighScoreManager.getAllHighScores().entrySet()) {
-    		String mode = entry.getKey();
-    		int highScore = entry.getValue();
-    		
-    		Label highScoreLabel = new Label(mode + ": " + highScore);
-    		highScoreLabel.getStyleClass().add("highScoreLabelClass");
-    		highScoresVBox.getChildren().add(highScoreLabel);
-    	}
+    	HighScoreDisplay.setup(highScoresVBox);
     	highScoresPane.setVisible(true);
     }
     
@@ -233,34 +162,7 @@ public class MenuController {
     @FXML
     void setMode(ActionEvent event) throws Exception {
     	Button clicked = (Button) event.getSource();
-    	
-    	switch (clicked.getText()) {
-			case "Classic":
-				GameModeManager.setGameMode(GameModes.CLASSIC);
-				break;
-			case "Hardcore":
-				GameModeManager.setGameMode(GameModes.HARDCORE);
-				break;
-			case "Time Limit":
-				GameModeManager.setGameMode(GameModes.TIME);
-				break;
-			case "Sprint":
-				GameModeManager.setGameMode(GameModes.SPRINT);
-				break;
-			case "Ultra":
-				GameModeManager.setGameMode(GameModes.ULTRA);
-				break;
-			case "Invisible":
-				GameModeManager.setGameMode(GameModes.INVISIBLE);
-				break;
-			case "Big Mode":
-				GameModeManager.setGameMode(GameModes.BIG);
-				break;
-			case "T-Mode":
-				GameModeManager.setGameMode(GameModes.TONLY);
-				break;
-		}
-    	
+    	ModeButtonManager.setMode(clicked);
     	modePane.setVisible(false);
     	GameStates.SetGameState(GameStates.PLAYING);
     	main.loadScene();

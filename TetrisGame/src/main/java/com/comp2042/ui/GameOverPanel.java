@@ -24,6 +24,10 @@ import javafx.util.Duration;
 
 
 public class GameOverPanel extends Pane {
+	private static final Duration BLINK_DURATION = Duration.seconds(0.3);
+	private static final Duration TRANSLATE_DURATION = Duration.seconds(0.5);
+	private static final Duration SCORE_FADE_DURATION = Duration.seconds(0.5);
+	private static final Duration RESTART_DURATION = Duration.seconds(1);
 	
 	final private Label gameOverLabel;
 	private Rectangle overlayBackground;
@@ -41,23 +45,59 @@ public class GameOverPanel extends Pane {
     public GameOverPanel() {
         
         //Dark overlay
-        overlayBackground = new Rectangle(600, 510);
-        overlayBackground.setFill(Color.BLACK);
-        overlayBackground.setOpacity(0);
-        overlayBackground.setX(0);
-        overlayBackground.setY(0);
+        overlayBackground = createOverlay();
         
     	//Game Over label
-        gameOverLabel = new Label("GAME OVER");
-        gameOverLabel.getStyleClass().add("gameOverStyle");
-        gameOverLabel.setLayoutX(214);
-        gameOverLabel.setLayoutY(203);
+        gameOverLabel = createLabel("GAME OVER", "gameOverStyle", 214, 203);
+        
+        //Display 2 labels: YOUR SCORE (with 0 under it), HIGH SCORE (with high score under it).
+        highScoreLabel = createLabel("HIGH SCORE", "gameOverStyleFinal", 198, 150);
+        
+        //HIGH SCORE taken from an external file
+        highScore = createLabel("0", "gameOverStyleFinal", 198, 200);
+        
+        yourScoreLabel = createLabel("YOUR SCORE", "gameOverStyleFinal", 198, 300);
+
+        yourScore = createLabel("0", "gameOverStyleFinal", 198, 350);
+        
+        //"Press N to restart" label
+        restartText = createLabel("PRESS 'N' TO RESTART", "restartTextStyle", 130, 450);
         
         //Add to root
-        getChildren().addAll(overlayBackground, gameOverLabel);
+        getChildren().addAll(overlayBackground, gameOverLabel, highScoreLabel, highScore, yourScoreLabel, yourScore, restartText);
         
+        setupVisibilityListener();
+    }
+    
+    private Rectangle createOverlay() {
+    	Rectangle overlay = new Rectangle(600, 510);
+        overlay.setFill(Color.BLACK);
+        overlay.setOpacity(0);
+        return overlay;
+    }
+    
+    private Label createLabel(String labelText, String styleClass, int x, int y) {
+        Label label = new Label(labelText);
+        label.getStyleClass().add(styleClass);
+        label.setLayoutX(x);
+        label.setLayoutY(y);
+        label.setOpacity(0);
+        return label;
+    }
+    
+    private void setupVisibilityListener() {
+	    //Checks if visible (visually) before running animation, uses lambda expression
+	    visibleProperty().addListener((obs, oldVisibility, currentVisibility) -> {
+	    	if (currentVisibility) {
+	    		resetAll();
+	    		playGameOverAnimation();
+	    	}
+	    });
+    }
+    
+    private void playGameOverAnimation() {
         //Blinking effect for Game Over
-        FadeTransition blink = new FadeTransition(Duration.seconds(0.3), gameOverLabel);
+        FadeTransition blink = new FadeTransition(BLINK_DURATION, gameOverLabel);
         
         blink.setFromValue(1.0);
         blink.setToValue(0);
@@ -65,12 +105,12 @@ public class GameOverPanel extends Pane {
         blink.setAutoReverse(true);
         
         //Game Over moves to the top middle
-        TranslateTransition moveToTop = new TranslateTransition(Duration.seconds(0.5), gameOverLabel);
+        TranslateTransition moveToTop = new TranslateTransition(TRANSLATE_DURATION, gameOverLabel);
         moveToTop.setByX(-16);
         moveToTop.setByY(-153);
         
         //Darkening Effect
-        FadeTransition darken = new FadeTransition(Duration.seconds(0.5), overlayBackground);
+        FadeTransition darken = new FadeTransition(TRANSLATE_DURATION, overlayBackground);
         
         darken.setFromValue(0.0);
         darken.setToValue(0.7);
@@ -81,92 +121,53 @@ public class GameOverPanel extends Pane {
         //Sequentially play blinking effect then darken effect
         SequentialTransition gameOverFadeIn = new SequentialTransition(blink, moveAndDarken);
         
-        //Display 2 labels: YOUR SCORE (with 0 under it), HIGH SCORE (with high score under it).
-        highScoreLabel = new Label("HIGH SCORE");
-        highScoreLabel.getStyleClass().add("gameOverStyleFinal");
-        highScoreLabel.setLayoutX(198);
-        highScoreLabel.setLayoutY(150);
-        highScoreLabel.setOpacity(0);
+        // Only apply CSS and  score fade in after animation finished
+        gameOverFadeIn.setOnFinished(e -> {
+        gameOverLabel.getStyleClass().add("gameOverStyleFinal");
+        fadeInScores();
+        });
         
-        //HIGH SCORE taken from an external file
-        highScore = new Label("0");
-        highScore.getStyleClass().add("gameOverStyleFinal");
-        highScore.setLayoutX(198);
-        highScore.setLayoutY(200);
-        highScore.setOpacity(0);
-        
-        
-        yourScoreLabel = new Label("YOUR SCORE");
-        yourScoreLabel.getStyleClass().add("gameOverStyleFinal");
-        yourScoreLabel.setLayoutX(198);
-        yourScoreLabel.setLayoutY(300);
-        yourScoreLabel.setOpacity(0);
-
-    	yourScore = new Label("0");
-        yourScore.getStyleClass().add("gameOverStyleFinal");
-        yourScore.setLayoutX(198);
-        yourScore.setLayoutY(350);
-        yourScore.setOpacity(0);
-        
-        //"Press N to restart" label
-        restartText = new Label("PRESS 'N' TO RESTART");
-        restartText.getStyleClass().add("restartTextStyle");
-        restartText.setLayoutX(130);
-        restartText.setLayoutY(450);
-        restartText.setOpacity(0);
-        
-        getChildren().addAll(highScoreLabel, highScore, yourScoreLabel, yourScore, restartText);
-        
+        gameOverFadeIn.play();
+    }
+    
+    private void fadeInScores() {
         //Fade in scores and their labels
-        FadeTransition fadeHighScoreLabel = new FadeTransition(Duration.seconds(0.5), highScoreLabel);
-        fadeHighScoreLabel.setFromValue(0);
-        fadeHighScoreLabel.setToValue(1.0);
-        
-        FadeTransition fadeHighScore = new FadeTransition(Duration.seconds(0.5), highScore);
-        fadeHighScore.setFromValue(0);
-        fadeHighScore.setToValue(1.0);
-        
-        FadeTransition fadeYourScoreLabel = new FadeTransition(Duration.seconds(0.5), yourScoreLabel);
-        fadeYourScoreLabel.setFromValue(0);
-        fadeYourScoreLabel.setToValue(1.0);
-        
-        FadeTransition fadeYourScore = new FadeTransition(Duration.seconds(0.5), yourScore);
-        fadeYourScore.setFromValue(0);
-        fadeYourScore.setToValue(1.0);
-        
         //Run all fades in parallel
-        ParallelTransition fadeAllScores = new ParallelTransition(fadeHighScoreLabel, fadeHighScore, fadeYourScoreLabel, fadeYourScore);
+        ParallelTransition fadeAllScores = new ParallelTransition(
+        		createFadeTransition(highScoreLabel),
+        		createFadeTransition(highScore),
+        		createFadeTransition(yourScoreLabel),
+        		createFadeTransition(yourScore)
+        		);
         
+        fadeAllScores.setOnFinished(e -> {
+    		animateScore(yourScore, 0, finalScore);
+        	playRestartAnimation();
+        	if (newHighScore) {
+        		newHighScoreAnimation();
+        	}
+        });
+        
+        fadeAllScores.play();
+    }
+
+	private FadeTransition createFadeTransition(Label label) {
+    	FadeTransition fade  = new FadeTransition(SCORE_FADE_DURATION, label);
+        fade.setFromValue(0);
+        fade.setToValue(1.0);
+        return fade;
+    }
+    
+    private void playRestartAnimation() {
         //'Press N to restart' fading in and out non-stop
-        fadeRestartText = new FadeTransition(Duration.seconds(1), restartText);
+        fadeRestartText = new FadeTransition(RESTART_DURATION, restartText);
         fadeRestartText.setFromValue(0);
         fadeRestartText.setToValue(1.0);
         fadeRestartText.setAutoReverse(true);
         fadeRestartText.setCycleCount(FadeTransition.INDEFINITE);
         
-        fadeAllScores.setOnFinished(e -> {
-    		animateScore(yourScore, 0, finalScore);
-        	fadeRestartText.play();
-        });
-        
-        // Only apply CSS and  score fade in after animation finished
-        gameOverFadeIn.setOnFinished(e -> {
-            gameOverLabel.getStyleClass().add("gameOverStyleFinal");
-            fadeAllScores.play();
-            if (newHighScore) {
-            	newHighScoreAnimation();
-            }
-        });
-        
-        //Checks if visible (visually) before running animation, uses lambda expression
-        visibleProperty().addListener((obs, oldVisibility, currentVisibility) -> {
-        	if (currentVisibility) {
-        		resetAll();
-        		gameOverFadeIn.play();
-        	}
-        });
-        
-    }
+        fadeRestartText.play();
+	}
     
     private void newHighScoreAnimation() {
     	highScoreLabel.setTextFill(Color.GOLD);
@@ -221,13 +222,17 @@ public class GameOverPanel extends Pane {
     	overlayBackground.setOpacity(0);
     	gameOverLabel.getStyleClass().remove("gameOverStyleFinal");
         gameOverLabel.getStyleClass().add("gameOverStyle");
+        gameOverLabel.setTranslateX(0);
+        gameOverLabel.setTranslateY(0);
         highScoreLabel.setOpacity(0);
         highScore.setOpacity(0);
         yourScoreLabel.setOpacity(0);
         yourScore.setOpacity(0);
     	yourScore.setText("0");
         restartText.setOpacity(0);
-        fadeRestartText.stop();
+        if (fadeRestartText != null) {
+        	fadeRestartText.stop();
+        }
         if (newHighScoreLabel != null) {
             newHighScoreLabel.setOpacity(0);
         }
@@ -239,17 +244,12 @@ public class GameOverPanel extends Pane {
     	currentHighScore = HighScoreManager.getHighScore();
     	highScore.setText(String.valueOf(currentHighScore));
     	System.out.println(currentHighScore);
-        if (GameModeManager.getGameMode() == GameModes.SPRINT && currentHighScore == 0) {
-        	if (score != 0) {
-	    		newHighScore = true;
-	        	HighScoreManager.saveHighScore(score);
-        	}
-        } else if (HighScoreManager.isHighScore(score, currentHighScore)) {
+    	
+    	if (HighScoreManager.isHighScore(score, currentHighScore)) {
     		newHighScore = true;
     		HighScoreManager.saveHighScore(score);
     	} else {
     		newHighScore = false;
     	}
     }
-
 }

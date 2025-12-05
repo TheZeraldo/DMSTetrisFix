@@ -133,6 +133,7 @@ public class GameController implements InputEventListener {
         viewGuiController.refreshGameBackground(board.getBoardMatrix());
         viewGuiController.updateNextPreview(board.getNextBrick());
         viewGuiController.updateHoldPreview(null);
+        viewGuiController.updateLines(board.getScore().linesLeft());
     }
     
     public Board getBoard() {
