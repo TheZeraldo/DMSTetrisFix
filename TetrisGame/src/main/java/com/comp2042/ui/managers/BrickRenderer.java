@@ -4,7 +4,6 @@ import com.comp2042.events.EventSource;
 import com.comp2042.events.EventType;
 import com.comp2042.events.MoveEvent;
 import com.comp2042.logic.bricks.Brick;
-import com.comp2042.model.DownData;
 import com.comp2042.model.ViewData;
 import com.comp2042.ui.controllers.GuiController;
 import com.comp2042.utils.GameModeManager;
@@ -13,7 +12,6 @@ import com.comp2042.utils.GameModes;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
-import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -147,7 +145,7 @@ public class BrickRenderer {
         rectangle.setArcWidth(9);
     }
     
-    public void drawNextBrickPreview(Pane pane, Brick brick) {
+    public void drawBrickPreview(Pane pane, Brick brick) {
     	pane.getChildren().removeIf(node -> node instanceof Rectangle);
     	
     	if (brick == null) {

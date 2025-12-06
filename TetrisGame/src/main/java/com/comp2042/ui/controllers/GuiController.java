@@ -1,31 +1,20 @@
 package com.comp2042.ui.controllers;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Reflection;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,8 +37,6 @@ import com.comp2042.utils.GameModes;
 import com.comp2042.utils.KeyBinds;
 
 public class GuiController implements Initializable {
-
-    private static final int BRICK_SIZE = 20;
 
     @FXML
     private GridPane gamePanel;
@@ -315,16 +302,16 @@ public class GuiController implements Initializable {
         isGameOver.setValue(Boolean.FALSE);
     }
     
-    private void drawNextBrickPreview(Pane pane, Brick brick) {
-    	brickRenderer.drawNextBrickPreview(pane, brick);
+    private void drawBrickPreview(Pane pane, Brick brick) {
+    	brickRenderer.drawBrickPreview(pane, brick);
     }
     
     public void updateNextPreview(Brick brick) {
-    	drawNextBrickPreview(nextBrickPane, brick);
+    	drawBrickPreview(nextBrickPane, brick);
     }
     
     public void updateHoldPreview(Brick brick) {
-    	drawNextBrickPreview(holdBrickPane, brick);
+    	drawBrickPreview(holdBrickPane, brick);
     }
 
     public void pauseGame(ActionEvent actionEvent) {

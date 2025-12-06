@@ -10,24 +10,22 @@ import com.comp2042.ui.controllers.GuiController;
 import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 
-import javafx.beans.property.IntegerProperty;
-
 public class GameController implements InputEventListener {
 
     private Board board = new SimpleBoard(25, 10);
 
-    private final GuiController viewGuiController;
+    private final GuiController guiController;
 
     public GameController(GuiController c) {
-        viewGuiController = c;
+        guiController = c;
         board.createNewBrick();
-        viewGuiController.setEventListener(this);
-        viewGuiController.initGameView(board.getBoardMatrix(), board.getViewData());
-        viewGuiController.bindScore(board.getScore().scoreProperty());
-        viewGuiController.bindLevel(board.getScore().levelProperty());
-        viewGuiController.updateLines(board.getScore().linesLeft());
-        viewGuiController.updateNextPreview(board.getNextBrick());
-        viewGuiController.updateHoldPreview(board.getHeldbrick());
+        guiController.setEventListener(this);
+        guiController.initGameView(board.getBoardMatrix(), board.getViewData());
+        guiController.bindScore(board.getScore().scoreProperty());
+        guiController.bindLevel(board.getScore().levelProperty());
+        guiController.updateLines(board.getScore().linesLeft());
+        guiController.updateNextPreview(board.getNextBrick());
+        guiController.updateHoldPreview(board.getHeldbrick());
     }
 
     @Override
@@ -39,22 +37,22 @@ public class GameController implements InputEventListener {
             clearRow = board.clearRows();
             if (clearRow.getLinesRemoved() > 0) {
             	if (GameModeManager.getGameMode() == GameModes.TIME) {
-            		viewGuiController.increaseTimer(clearRow.getLinesRemoved() * 5);
+            		guiController.increaseTimer(clearRow.getLinesRemoved() * 5);
             	}
                 board.getScore().add(clearRow.getScoreBonus());
                 board.getScore().addLines(clearRow.getLinesRemoved());
                 if (GameModeManager.getGameMode() == GameModes.SPRINT && board.getScore().linesLeft() == 0) {
-                    viewGuiController.gameOver(false);
+                    guiController.gameOver(false);
                 }
-                viewGuiController.updateLines(board.getScore().linesLeft());
-                viewGuiController.updateFallSpeed(board.getScore().getFallSpeed());
+                guiController.updateLines(board.getScore().linesLeft());
+                guiController.updateFallSpeed(board.getScore().getFallSpeed());
             }
             if (board.createNewBrick()) {
-                viewGuiController.gameOver(true);
+                guiController.gameOver(true);
             }
 
-            viewGuiController.updateNextPreview(board.getNextBrick());
-            viewGuiController.refreshGameBackground(board.getBoardMatrix());
+            guiController.updateNextPreview(board.getNextBrick());
+            guiController.refreshGameBackground(board.getBoardMatrix());
 
         } else {
             if (event.getEventSource() == EventSource.USER) {
@@ -75,24 +73,23 @@ public class GameController implements InputEventListener {
         ClearRow clearRow = board.clearRows();
         if (clearRow.getLinesRemoved() > 0) {
         	if (GameModeManager.getGameMode() == GameModes.TIME) {
-        		viewGuiController.increaseTimer(clearRow.getLinesRemoved() * 10);
+        		guiController.increaseTimer(clearRow.getLinesRemoved() * 10);
         	}
             board.getScore().add(clearRow.getScoreBonus());
             board.getScore().addLines(clearRow.getLinesRemoved());
-            //board.getScore().addLines(10);
             if (GameModeManager.getGameMode() == GameModes.SPRINT && board.getScore().linesLeft() == 0) {
-                viewGuiController.gameOver(false);
+                guiController.gameOver(false);
             } else {
-            	viewGuiController.updateFallSpeed(board.getScore().getFallSpeed());
+            	guiController.updateFallSpeed(board.getScore().getFallSpeed());
             }
-        	viewGuiController.updateLines(board.getScore().linesLeft());
+        	guiController.updateLines(board.getScore().linesLeft());
         }
         if (board.createNewBrick()) {
-            viewGuiController.gameOver(true);
+            guiController.gameOver(true);
         }
 
-        viewGuiController.updateNextPreview(board.getNextBrick());
-        viewGuiController.refreshGameBackground(board.getBoardMatrix());
+        guiController.updateNextPreview(board.getNextBrick());
+        guiController.refreshGameBackground(board.getBoardMatrix());
         
         return new DownData(clearRow, board.getViewData());
 	}
@@ -119,9 +116,9 @@ public class GameController implements InputEventListener {
 	public ViewData onHoldEvent(MoveEvent event) {
 		if (board.canHold()) {
 			board.holdBrick();
-	        viewGuiController.updateNextPreview(board.getNextBrick());
-	        viewGuiController.updateHoldPreview(board.getHeldbrick());
-	        viewGuiController.refreshGameBackground(board.getBoardMatrix());
+	        guiController.updateNextPreview(board.getNextBrick());
+	        guiController.updateHoldPreview(board.getHeldbrick());
+	        guiController.refreshGameBackground(board.getBoardMatrix());
 		}
         return board.getViewData();
 	}
@@ -130,13 +127,9 @@ public class GameController implements InputEventListener {
     @Override
     public void createNewGame() {
         board.newGame();
-        viewGuiController.refreshGameBackground(board.getBoardMatrix());
-        viewGuiController.updateNextPreview(board.getNextBrick());
-        viewGuiController.updateHoldPreview(null);
-        viewGuiController.updateLines(board.getScore().linesLeft());
-    }
-    
-    public Board getBoard() {
-    	return board;
+        guiController.refreshGameBackground(board.getBoardMatrix());
+        guiController.updateNextPreview(board.getNextBrick());
+        guiController.updateHoldPreview(null);
+        guiController.updateLines(board.getScore().linesLeft());
     }
 }

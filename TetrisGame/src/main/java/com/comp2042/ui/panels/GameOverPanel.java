@@ -1,10 +1,8 @@
 package com.comp2042.ui.panels;
 
-import com.comp2042.utils.GameModeManager;
-import com.comp2042.utils.GameModes;
 import com.comp2042.utils.HighScoreManager;
+import com.comp2042.utils.KeyBinds;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -12,14 +10,10 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
@@ -61,7 +55,7 @@ public class GameOverPanel extends Pane {
         yourScore = createLabel("0", "gameOverStyleFinal", 198, 350);
         
         //"Press N to restart" label
-        restartText = createLabel("PRESS 'N' TO RESTART", "restartTextStyle", 130, 450);
+        restartText = createLabel("PRESS '" + KeyBinds.getKey("New Game") + "' TO RESTART", "restartTextStyle", 130, 450);
         
         //Add to root
         getChildren().addAll(overlayBackground, gameOverLabel, highScoreLabel, highScore, yourScoreLabel, yourScore, restartText);
@@ -243,7 +237,6 @@ public class GameOverPanel extends Pane {
 
     	currentHighScore = HighScoreManager.getHighScore();
     	highScore.setText(String.valueOf(currentHighScore));
-    	System.out.println(currentHighScore);
     	
     	if (HighScoreManager.isHighScore(score, currentHighScore)) {
     		newHighScore = true;

@@ -31,11 +31,7 @@ public class BrickManager {
     public boolean createNewBrick() {
         Brick currentBrick = brickGenerator.getBrick();
         brickRotator.setBrick(currentBrick);
-        if (GameModeManager.getGameMode() == GameModes.BIG) {
-            currentOffset = new Point(2, 1);
-        } else {
-            currentOffset = new Point(4, 1);
-        }
+        resetOffset();
         
         return MatrixOperations.intersect(currentGameMatrix, brickRotator.getCurrentShape(), (int) currentOffset.getX(), (int) currentOffset.getY());
     }
@@ -78,6 +74,14 @@ public class BrickManager {
     
     public int[][] getGameMatrix() {
     	return currentGameMatrix;
+    }
+    
+    public void resetOffset() {
+        if (GameModeManager.getGameMode() == GameModes.BIG) {
+            currentOffset = new Point(2, 1);
+        } else {
+            currentOffset = new Point(4, 1);
+        }
     }
     
     public void setOffset(Point offset) {

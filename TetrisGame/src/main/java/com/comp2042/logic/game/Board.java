@@ -24,14 +24,14 @@ public interface Board {
     void mergeBrickToBackground();
 
     ClearRow clearRows();
-    
-    int getLandingYPosition();
-    
-    Brick getNextBrick();
 
     Score getScore();
 
     void newGame();
+    
+    int getLandingYPosition();
+    
+    Brick getNextBrick();
     
     boolean canHold();
     

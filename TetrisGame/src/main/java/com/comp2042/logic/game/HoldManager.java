@@ -1,10 +1,6 @@
 package com.comp2042.logic.game;
 
-import java.awt.Point;
-
 import com.comp2042.logic.bricks.Brick;
-import com.comp2042.utils.GameModeManager;
-import com.comp2042.utils.GameModes;
 
 public class HoldManager {
 	private final BrickManager brickManager;
@@ -31,6 +27,7 @@ public class HoldManager {
 			Brick temp = heldBrick;
 			heldBrick = currentBrick;
 	        brickManager.setBrick(temp);
+	        brickManager.resetOffset();
 		}
 	}
 	

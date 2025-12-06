@@ -1,27 +1,15 @@
 package com.comp2042.ui.controllers;
 
-import java.net.URL;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import com.comp2042.main.GameStates;
 import com.comp2042.main.Main;
 import com.comp2042.ui.managers.HighScoreDisplay;
 import com.comp2042.ui.managers.KeyBindEditor;
 import com.comp2042.ui.managers.ModeButtonManager;
-import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
-import com.comp2042.utils.HighScoreManager;
-import com.comp2042.utils.KeyBinds;
-
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;

@@ -1,13 +1,7 @@
 package com.comp2042.main;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import com.comp2042.logic.game.GameController;
 import com.comp2042.ui.controllers.GuiController;
