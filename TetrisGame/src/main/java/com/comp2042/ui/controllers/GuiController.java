@@ -276,6 +276,9 @@ public class GuiController implements Initializable {
     }
     
     public void updateLines(int lines) {
+    	if (lines < 0) {
+    		lines = 0;
+    	}
     	linesDisplay.getStyleClass().add("gameOverStyleFinal");
     	linesDisplay.setText(String.valueOf(lines));
     }
@@ -299,6 +302,7 @@ public class GuiController implements Initializable {
         gamePanel.requestFocus();
         brickRenderer.startFallTimeline();
         isPaused.setValue(Boolean.FALSE);
+		pausePane.setVisible(false);
         isGameOver.setValue(Boolean.FALSE);
     }
     

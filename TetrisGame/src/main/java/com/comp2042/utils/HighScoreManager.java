@@ -67,7 +67,7 @@ public class HighScoreManager {
 	}
 	
 	public static boolean isHighScore(int score, int highScore) {
-		if (GameModeManager.getGameMode() == GameModes.SPRINT) {
+		if (GameModeManager.getGameMode() == GameModes.SPRINT && highScore != 0 && score != 0) {
 			return score < highScore;
 		} else {
 			return score > highScore;
