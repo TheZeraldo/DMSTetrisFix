@@ -77,7 +77,6 @@ public class GameController implements InputEventListener {
         	}
             board.getScore().add(clearRow.getScoreBonus());
             board.getScore().addLines(clearRow.getLinesRemoved());
-            board.getScore().addLines(10);
             if (GameModeManager.getGameMode() == GameModes.SPRINT && board.getScore().linesLeft() <= 0) {
                 guiController.gameOver(false);
             } else {
