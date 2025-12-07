@@ -7,8 +7,19 @@ import com.comp2042.utils.HighScoreManager;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+
+/**
+ * Handles the visual display of high scores in the UI.
+ * Loads all scores from the HighScoreManager and inserts them into a VBox as formatted labels.
+ */
 public class HighScoreDisplay {
 
+    /**
+     * Populates the given VBox with all high scores.
+     * Displays a "No High Scores" message if none exist.
+     *
+     * @param box: the VBox used to display the high scores
+     */
 	public static void setup(VBox box) {
     	box.getChildren().clear();
     	

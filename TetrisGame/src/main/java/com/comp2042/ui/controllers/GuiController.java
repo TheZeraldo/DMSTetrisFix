@@ -36,6 +36,11 @@ import com.comp2042.utils.GameModeManager;
 import com.comp2042.utils.GameModes;
 import com.comp2042.utils.KeyBinds;
 
+
+/**
+ * Controller class for the main game GUI.
+ * Handles user input, updates the game view, and coordinates UI components, such as score display, timers, brick rendering, and game over panel.
+ */
 public class GuiController implements Initializable {
 
     @FXML
@@ -121,6 +126,12 @@ public class GuiController implements Initializable {
 
     private final BooleanProperty isGameOver = new SimpleBooleanProperty();
 
+    /**
+     * Initializes the UI components, key handlers, fonts, and game managers.
+     *
+     * @param location: the location of the FXML file
+     * @param resources: the resources used to localize the root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(), 38);
@@ -171,7 +182,7 @@ public class GuiController implements Initializable {
             }
         });
         timerManager = new TimerManager(timeDisplay, this);
-        scoreManager = new ScoreManager(this, scoreVBox, levelVBox, scoreDisplay, levelDisplay);
+        scoreManager = new ScoreManager();
         brickRenderer = new BrickRenderer(this, gamePanel, brickPanel, ghostBrickPanel);
         updateControlsPane();
         gameOverPanel.setVisible(false);
@@ -182,6 +193,12 @@ public class GuiController implements Initializable {
         reflection.setTopOffset(-12);
     }
 
+    /**
+     * Initializes the game view with the board and current brick state.
+     *
+     * @param boardMatrix: the initial game board matrix
+     * @param brick: the initial view data for the active brick
+     */
 	public void initGameView(int[][] boardMatrix, ViewData brick) {
 		if (GameModeManager.getGameMode() == GameModes.SPRINT) {
         	scoreVBox.setVisible(false);
@@ -195,6 +212,9 @@ public class GuiController implements Initializable {
         updateFallSpeed(400);
     }
 	
+    /**
+     * Starts the timer depending on the game mode.
+     */
 	private void startTime() {
 		switch (GameModeManager.getGameMode()) {
 			case TIME -> timerManager.startCountdown(20);
@@ -203,24 +223,47 @@ public class GuiController implements Initializable {
 		}
 	}
 
+    /**
+     * Updates the falling speed of the active brick.
+     *
+     * @param speed: the new fall speed in milliseconds
+     */
     public void updateFallSpeed(int speed) {
     	brickRenderer.updateFallSpeed(speed);
 	}
     
+    /**
+     * Increases the game timer by the specified amount of time.
+     *
+     * @param time: the amount of time to add in seconds
+     */
     public void increaseTimer(int time) {
     	timerManager.increaseTimer(time);
     }
 
+    /**
+     * Refreshes the position and appearance of the current brick.
+     *
+     * @param brick: the updated view data for the brick
+     */
     private void refreshBrick(ViewData brick) {
         if (isPaused.getValue() == Boolean.FALSE) {
         	brickRenderer.refreshBrick(brick);
         }
     }
 
+    /**
+     * Updates the background game board with the latest board state.
+     *
+     * @param board: the updated board matrix
+     */
     public void refreshGameBackground(int[][] board) {
     	brickRenderer.refreshGameBackground(board);
     }
 
+    /**
+     * Updates the controls help panel to reflect current key bindings.
+     */
     private void updateControlsPane() {
 		quitLabel.setText(KeyBinds.getKey("Main Menu") + " - Quit Game");
 		pauseLabel.setText(KeyBinds.getKey("Pause") + " - Pause Game");
@@ -233,6 +276,12 @@ public class GuiController implements Initializable {
 		hardDropLabel.setText(KeyBinds.getKey("Hard Drop") + " - Hard Drop");
 	}
 
+    /**
+     * Moves the active brick down.
+     * Also handles row clearing and score notifications.
+     *
+     * @param event: the movement event
+     */
     public void moveDown(MoveEvent event) {
         if (isPaused.getValue() == Boolean.FALSE) {
             DownData downData = eventListener.onDownEvent(event);
@@ -246,6 +295,12 @@ public class GuiController implements Initializable {
         gamePanel.requestFocus();
     }
 
+    /**
+     * Performs a hard drop, instantly placing the brick at the landing position.
+     * Also handles row clearing and score notifications.
+     *
+     * @param event: the movement event
+     */
     private void hardDrop(MoveEvent event) {
         if (isPaused.getValue() == Boolean.FALSE) {
             DownData downData = eventListener.onHardDropEvent(event);
@@ -259,22 +314,42 @@ public class GuiController implements Initializable {
         gamePanel.requestFocus();
     }
 
+    /**
+     * Sets the event listener responsible for handling input events.
+     *
+     * @param eventListener: the input event listener to register
+     */
     public void setEventListener(InputEventListener eventListener) {
         this.eventListener = eventListener;
     }
 
+    /**
+     * Binds the score display to the provided score property.
+     *
+     * @param integerProperty: the score property to bind to the UI
+     */
     public void bindScore(IntegerProperty integerProperty) {
     	scoreManager.getScore().bind(integerProperty);
     	scoreDisplay.getStyleClass().add("gameOverStyleFinal");
     	scoreDisplay.textProperty().bind(scoreManager.getScore().asString());
     }
     
+    /**
+     * Binds the level display to the provided level property.
+     *
+     * @param integerProperty: the level property to bind to the UI
+     */
     public void bindLevel(IntegerProperty integerProperty) {
 		scoreManager.getLevel().bind(integerProperty);
     	levelDisplay.getStyleClass().add("gameOverStyleFinal");
     	levelDisplay.textProperty().bind(scoreManager.getLevel().add(1).asString());
     }
     
+    /**
+     * Updates the displayed number of remaining lines.
+     *
+     * @param lines: the number of lines to display
+     */
     public void updateLines(int lines) {
     	if (lines < 0) {
     		lines = 0;
@@ -283,6 +358,11 @@ public class GuiController implements Initializable {
     	linesDisplay.setText(String.valueOf(lines));
     }
 
+    /**
+     * Handles the game over state and displays the game over panel.
+     *
+     * @param diedByOverflow: true if the game ended due to block overflow, false otherwise
+     */
     public void gameOver(boolean diedByOverflow) {
         brickRenderer.stopFallTimeline();
         timerManager.gameOver(diedByOverflow);
@@ -293,6 +373,11 @@ public class GuiController implements Initializable {
         gameOverPanel.setVisible(true);
     }
 
+    /**
+     * Starts a new game and resets the game state and UI.
+     *
+     * @param actionEvent: the event that triggered the new game action
+     */
     public void newGame(ActionEvent actionEvent) {
         brickRenderer.stopFallTimeline();
         startTime();
@@ -306,18 +391,39 @@ public class GuiController implements Initializable {
         isGameOver.setValue(Boolean.FALSE);
     }
     
+    /**
+     * Draws a preview of the specified brick in the given pane.
+     *
+     * @param pane: the pane to draw the preview in
+     * @param brick: the brick to preview
+     */
     private void drawBrickPreview(Pane pane, Brick brick) {
     	brickRenderer.drawBrickPreview(pane, brick);
     }
     
+    /**
+     * Updates the next brick preview panel.
+     *
+     * @param brick: the next brick to display
+     */
     public void updateNextPreview(Brick brick) {
     	drawBrickPreview(nextBrickPane, brick);
     }
     
+    /**
+     * Updates the held brick preview panel.
+     *
+     * @param brick: the held brick to display
+     */
     public void updateHoldPreview(Brick brick) {
     	drawBrickPreview(holdBrickPane, brick);
     }
 
+    /**
+     * Toggles the paused state of the game and updates the UI accordingly.
+     *
+     * @param actionEvent: the event that triggered the pause action
+     */
     public void pauseGame(ActionEvent actionEvent) {
     	if (isGameOver.getValue() == false) {
     		if (isPaused.getValue() == false) {
@@ -332,6 +438,9 @@ public class GuiController implements Initializable {
         gamePanel.requestFocus();
     }
     
+    /**
+     * Returns the user to the main menu and stops the game loop.
+     */
     public void returnToMainMenu() {
     	brickRenderer.stopFallTimeline();
     	GameStates.SetGameState(GameStates.MENU);
@@ -342,10 +451,20 @@ public class GuiController implements Initializable {
 		}
     }
     
+    /**
+     * Sets the main application reference for scene loading.
+     *
+     * @param main: the main application instance
+     */
     public void setMain(Main main) {
     	this.main = main;
     }
     
+    /**
+     * Gets the game over panel instance.
+     *
+     * @return the game over panel
+     */
     public GameOverPanel getGameOverPanel() {
     	return gameOverPanel;
     }

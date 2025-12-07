@@ -19,6 +19,12 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+
+/**
+ * Handles all visual rendering of bricks, ghost pieces, and the game board.
+ * This class updates brick positions, colors, falling speed, and previews.
+ * It communicates with the GUI controller to trigger movement and fall events.
+ */
 public class BrickRenderer {
 	private static final int BRICK_SIZE = 20;
 	
@@ -31,6 +37,14 @@ public class BrickRenderer {
     private Rectangle[][] ghostRectangles;
     private Rectangle[][] displayMatrix;
 	
+    /**
+     * Creates a new BrickRenderer responsible for drawing bricks and board cells.
+     *
+     * @param guiController: the controller used to trigger game actions
+     * @param gamePanel: the grid displaying the background board
+     * @param brickPanel: the grid used to display the active falling brick
+     * @param ghostPanel: the grid used to display the ghost brick
+     */
 	public BrickRenderer(GuiController guiController, GridPane gamePanel, GridPane brickPanel, GridPane ghostPanel) {
 		this.guiController = guiController;
 		this.gamePanel = gamePanel;
@@ -38,6 +52,12 @@ public class BrickRenderer {
 		this.ghostPanel = ghostPanel;
 	}
 	
+    /**
+     * Initializes the board display and loads the first brick and ghost piece.
+     *
+     * @param boardMatrix: the background game matrix
+     * @param brick: the view data of the currently active brick
+     */
 	public void init(int[][] boardMatrix, ViewData brick) {
         displayMatrix = new Rectangle[boardMatrix.length][boardMatrix[0].length];
         for (int i = 2; i < boardMatrix.length; i++) {
@@ -82,6 +102,11 @@ public class BrickRenderer {
         ghostPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getLandingYPosition() * ghostPanel.getHgap() + brick.getLandingYPosition() * BRICK_SIZE);
 	}
 
+    /**
+     * Updates the automatic fall speed of the brick by stopping the timeline and creating a new one.
+     *
+     * @param speed: the fall delay in milliseconds
+     */
     public void updateFallSpeed(int speed) {
     	//stops old timeline and starts new one with new speed
     	if (fallTimeline != null) {
@@ -105,6 +130,11 @@ public class BrickRenderer {
         fallTimeline.play();
 	}
 
+    /**
+     * Updates the on screen position and shape of the active brick and ghost brick.
+     *
+     * @param brick: the current brick view data
+     */
     public void refreshBrick(ViewData brick) {
         brickPanel.setLayoutX(200 + gamePanel.getLayoutX() + brick.getXPosition() * brickPanel.getVgap() + brick.getXPosition() * BRICK_SIZE);
         brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getYPosition() * brickPanel.getHgap() + brick.getYPosition() * BRICK_SIZE);
@@ -127,6 +157,11 @@ public class BrickRenderer {
         }
     }
 
+    /**
+     * Updates the background game grid by redrawing all board cells.
+     *
+     * @param board: the current board matrix
+     */
     public void refreshGameBackground(int[][] board) {
         for (int i = 2; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -139,12 +174,24 @@ public class BrickRenderer {
         }
     }
 
+    /**
+     * Sets the data for drawing the rectangle.
+     *
+     * @param color: color of the brick
+     * @param rectangle: the rectangle whose data is being updated
+     */
     private void setRectangleData(int color, Rectangle rectangle) {
         rectangle.setFill(getFillColor(color));
         rectangle.setArcHeight(9);
         rectangle.setArcWidth(9);
     }
     
+    /**
+     * Draws a preview of the brick in the given pane.
+     *
+     * @param pane: the UI container to draw into
+     * @param brick: the brick whose preview should be rendered
+     */
     public void drawBrickPreview(Pane pane, Brick brick) {
     	pane.getChildren().removeIf(node -> node instanceof Rectangle);
     	
@@ -172,6 +219,12 @@ public class BrickRenderer {
         }
     }
 
+    /**
+     * Returns a fill color based on a brick's numeric ID.
+     *
+     * @param i: the numeric color index
+     * @return the corresponding Paint color
+     */
 	public Paint getFillColor(int i) {
 		Paint[] colors = {
 				Color.TRANSPARENT,
@@ -190,6 +243,11 @@ public class BrickRenderer {
         return colors[i];
     }
 
+    /**
+     * Pause the fall timeline of bricks and reverse the value of the isPaused boolean.
+     *
+     * @param isPaused: the paused/not paused property
+     */
     public void togglePause(BooleanProperty isPaused) {
 		if (isPaused.getValue() == false) {
 			fallTimeline.pause();
@@ -199,10 +257,16 @@ public class BrickRenderer {
 		isPaused.set(!isPaused.get());
     }
     
+    /**
+     * Stops the fall timeline.
+     */
     public void stopFallTimeline() {
     	fallTimeline.stop();
     }
     
+    /**
+     * Starts or resumes the fall timeline.
+     */
     public void startFallTimeline() {
     	fallTimeline.play();
     }

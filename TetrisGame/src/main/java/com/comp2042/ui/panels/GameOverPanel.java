@@ -17,6 +17,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 
+/**
+ * A UI panel that displays the game over screen with animations.
+ * Shows the final score, high score, and restart instructions.
+ */
 public class GameOverPanel extends Pane {
 	private static final Duration BLINK_DURATION = Duration.seconds(0.3);
 	private static final Duration TRANSLATE_DURATION = Duration.seconds(0.5);
@@ -36,6 +40,9 @@ public class GameOverPanel extends Pane {
 	private int currentHighScore;
 	private boolean newHighScore = false;
 	
+    /**
+     * Creates a new GameOverPanel and initializes all UI elements.
+     */
     public GameOverPanel() {
         
         //Dark overlay
@@ -63,6 +70,11 @@ public class GameOverPanel extends Pane {
         setupVisibilityListener();
     }
     
+    /**
+     * Creates and returns the dark overlay background for the panel.
+     *
+     * @return a Rectangle used as a translucent background
+     */
     private Rectangle createOverlay() {
     	Rectangle overlay = new Rectangle(600, 510);
         overlay.setFill(Color.BLACK);
@@ -70,6 +82,15 @@ public class GameOverPanel extends Pane {
         return overlay;
     }
     
+    /**
+     * Creates and returns a styled label at a specific position.
+     *
+     * @param labelText: the text to display
+     * @param styleClass: the CSS style class to apply
+     * @param x: the x position
+     * @param y: the y position
+     * @return the created Label
+     */
     private Label createLabel(String labelText, String styleClass, int x, int y) {
         Label label = new Label(labelText);
         label.getStyleClass().add(styleClass);
@@ -79,6 +100,9 @@ public class GameOverPanel extends Pane {
         return label;
     }
     
+    /**
+     * Sets up a listener to trigger animations when the panel becomes visible.
+     */
     private void setupVisibilityListener() {
 	    //Checks if visible (visually) before running animation, uses lambda expression
 	    visibleProperty().addListener((obs, oldVisibility, currentVisibility) -> {
@@ -89,6 +113,9 @@ public class GameOverPanel extends Pane {
 	    });
     }
     
+    /**
+     * Plays the main "Game Over" animation sequence.
+     */
     private void playGameOverAnimation() {
         //Blinking effect for Game Over
         FadeTransition blink = new FadeTransition(BLINK_DURATION, gameOverLabel);
@@ -124,6 +151,10 @@ public class GameOverPanel extends Pane {
         gameOverFadeIn.play();
     }
     
+
+    /**
+     * Fades in the score labels and starts score animations.
+     */
     private void fadeInScores() {
         //Fade in scores and their labels
         //Run all fades in parallel
@@ -145,6 +176,12 @@ public class GameOverPanel extends Pane {
         fadeAllScores.play();
     }
 
+    /**
+     * Creates a fade transition for a given label.
+     *
+     * @param label: the label to animate
+     * @return the created FadeTransition
+     */
 	private FadeTransition createFadeTransition(Label label) {
     	FadeTransition fade  = new FadeTransition(SCORE_FADE_DURATION, label);
         fade.setFromValue(0);
@@ -152,6 +189,10 @@ public class GameOverPanel extends Pane {
         return fade;
     }
     
+
+    /**
+     * Plays the looping "restart" text animation.
+     */
     private void playRestartAnimation() {
         //'Press N to restart' fading in and out non-stop
         fadeRestartText = new FadeTransition(RESTART_DURATION, restartText);
@@ -163,6 +204,9 @@ public class GameOverPanel extends Pane {
         fadeRestartText.play();
 	}
     
+    /**
+     * Plays the animation shown when a new high score is achieved.
+     */
     private void newHighScoreAnimation() {
     	highScoreLabel.setTextFill(Color.GOLD);
     	highScore.setTextFill(Color.GOLD);
@@ -188,8 +232,13 @@ public class GameOverPanel extends Pane {
             animateScore(highScore, currentHighScore, finalScore);
         });
     }
-    
-    //Animate score to go from 0 up to the player final score
+    /**
+     * Animate score to go from 0 up to the player final score
+     *
+     * @param label: the label whose text will be animated
+     * @param initialScore: the starting score value
+     * @param finalScore: the ending score value
+     */
     private void animateScore(Label label, int initialScore, int finalScore) {
     	Duration duration = Duration.seconds(2);
 
@@ -212,6 +261,9 @@ public class GameOverPanel extends Pane {
         timeline.play();
     }
     
+    /**
+     * Resets all UI elements and animations to their initial state.
+     */
     private void resetAll() {
     	overlayBackground.setOpacity(0);
     	gameOverLabel.getStyleClass().remove("gameOverStyleFinal");
@@ -232,6 +284,12 @@ public class GameOverPanel extends Pane {
         }
     }
     
+
+    /**
+     * Sets the final score and updates the high score display.
+     *
+     * @param score: the player's final score
+     */
     public void setScore(int score) {
     	finalScore = score;
 

@@ -1,5 +1,10 @@
 package com.comp2042.utils;
 
+
+/**
+ * Defines the available game modes and provides descriptions for each mode.
+ * Used to configure different rule sets and behaviours in the game.
+ */
 public enum GameModes {
 	CLASSIC,
 	HARDCORE,	//Fast gravity
@@ -10,6 +15,13 @@ public enum GameModes {
 	BIG,		//Pieces are 2x as large
 	TONLY;		//Only T-pieces
 	
+
+    /**
+     * Returns a description for a given game mode.
+     *
+     * @param mode: the game mode to describe
+     * @return a short description of the selected game mode
+     */
 	public static String getGameModeDescription(GameModes mode) {       
 		return switch (mode) {
 		    case CLASSIC -> "Standard Tetris, clear lines to score, speed increases per level";
