@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="600.0" stylesheets="@menuButtons.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.comp2042.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="600.0" stylesheets="@menuButtons.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.comp2042.ui.controllers.MenuController">
    <children>
        <Button id="startButton" layoutX="207.0" layoutY="91.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#onStartButtonPressed" prefHeight="45.0" prefWidth="186.0" styleClass="startButton" stylesheets="@menuButtons.css" text="Start Game">
          <font>

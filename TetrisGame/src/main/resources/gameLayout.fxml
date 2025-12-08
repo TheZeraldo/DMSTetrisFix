@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.comp2042.GameOverPanel?>
+<?import com.comp2042.ui.panels.GameOverPanel?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="510.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.comp2042.GuiController">
+<Pane prefHeight="510.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.comp2042.ui.controllers.GuiController">
    <GridPane fx:id="ghostBrickPanel" hgap="1" layoutX="200.0" vgap="1" />
     <GridPane fx:id="brickPanel" hgap="1" layoutX="200.0" vgap="1" />
     <BorderPane fx:id="gameBoard" layoutX="200.0" prefHeight="510.0" prefWidth="234.0" styleClass="gameBoard">
